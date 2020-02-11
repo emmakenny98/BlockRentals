@@ -3,16 +3,20 @@ pragma experimental ABIEncoderV2;
 
 contract CreateListing {
 
+  
 	struct Listing {
         uint id; 
 	    string name;
         string addr;
         uint price;
-        uint deposit;
         string description;
         uint numBed;
         uint numBath;
-        //string photo;
+        string landlordName;
+        string landlordEmail;
+        string landlordPhone;
+        string landlordBio;
+        
 	}
 
 
@@ -21,40 +25,37 @@ contract CreateListing {
     uint[] public listingIndexes;
 	uint listingCounter;
 	
-    function addListing(string memory name_form, string memory address_form, uint price_form, uint deposit_form, string memory description_form, uint numBed_form, uint numBath_form) public returns (string memory) {
+    function addListing(string memory name_form, string memory address_form, uint price_form,  string memory description_form, uint numBed_form, uint numBath_form, string memory fullName, string  memory email, string memory phone, string memory bio) public {
         uint listingId = listingCounter++;
         listings[listingId].id = listingId;
         listings[listingId].name = name_form;
         listings[listingId].addr = address_form;
         listings[listingId].price = price_form;
-        listings[listingId].deposit = deposit_form;
+
         listings[listingId].description = description_form;
         listings[listingId].numBed = numBed_form;
         listings[listingId].numBath = numBath_form;
-        //listing[listingId].photo = photo_form;
+        listings[listingId].landlordName = fullName;
+        listings[listingId].landlordEmail = email;
+       listings[listingId].landlordPhone = phone;
+       listings[listingId].landlordBio = bio;
 
-        listingIndexes.push(listingId);
-
-        return listings[listingId].name;
+       listingIndexes.push(listingId);
+        
     }
+
+   
 	
 	function getListingIndexes() public returns (uint[] memory) {
 		return listingIndexes;
 	}
 	
-	function getListing(uint index) public returns (string memory, string memory, uint, uint, string memory, uint, uint) {
- 		Listing memory house = listings[index];		
-		string memory name_ret = house.name;
-		string memory address_ret = house.addr;
-       
-        uint price_ret = house.price;
-        uint deposit_ret = house.deposit;
-        string memory description_ret = house.description;
-        uint numBed_ret = house.numBed;
-        uint numBath_ret = house.numBath;
-        //string memory photo_ret = house.photo;
 
-		return (name_ret, address_ret,  price_ret, deposit_ret, description_ret, numBed_ret, numBath_ret);
+    
+	function getListing(uint index) public returns (string memory, string memory, uint, string memory, uint, uint, uint, string memory, string memory, string memory, string memory) {
+ 		Listing memory house = listings[index];		
+	
+		return (house.name, house.addr,  house.price,house.description, house.numBed, house.numBath, house.id, house.landlordName, house.landlordEmail, house.landlordPhone, house.landlordBio);
 	}
 
 
