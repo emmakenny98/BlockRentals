@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Sweet Alert JavaScript -->
-    <script src="sweetalert2.js"></script>
-    <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <!-- Nunito Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
-    <meta charset="utf-8">
-    <title>Block Rentals</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-  
-    <!-- Favicons -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- Sweet Alert JavaScript -->
+  <script src="sweetalert2.js"></script>
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <!-- Nunito Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>Block Rentals</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -28,233 +31,123 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-  
-    <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  
-    <!-- Libraries CSS Files -->
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  
-    <script src="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.js"></script>
-    <!-- Main Stylesheet File -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-        <div class="click-closed"></div>
-        <!--/ Form Search Star /-->
-        <div class="box-collapse">
-          <div class="title-box-d">
-            <h3 class="title-d">Search Property</h3>
-          </div>
-          <span class="close-box-collapse right-boxed ion-ios-close"></span>
-          <div class="box-collapse-wrap form">
-            <form class="form-a">
-              <div class="row">
-                <div class="col-md-12 mb-2">
-                  <div class="form-group">
-                    <label for="Type">Keyword</label>
-                    <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="Type">Type</label>
-                    <select class="form-control form-control-lg form-control-a" id="Type">
-                      <option>All Type</option>
-                      <option>For Rent</option>
-                      <option>For Sale</option>
-                      <option>Open House</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="city">City</label>
-                    <select class="form-control form-control-lg form-control-a" id="city">
-                      <option>All City</option>
-                      <option>Alabama</option>
-                      <option>Arizona</option>
-                      <option>California</option>
-                      <option>Colorado</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="bedrooms">Bedrooms</label>
-                    <select class="form-control form-control-lg form-control-a" id="bedrooms">
-                      <option>Any</option>
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="garages">Garages</label>
-                    <select class="form-control form-control-lg form-control-a" id="garages">
-                      <option>Any</option>
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                      <option>04</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="bathrooms">Bathrooms</label>
-                    <select class="form-control form-control-lg form-control-a" id="bathrooms">
-                      <option>Any</option>
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <div class="form-group">
-                    <label for="price">Min Price</label>
-                    <select class="form-control form-control-lg form-control-a" id="price">
-                      <option>Unlimite</option>
-                      <option>$50,000</option>
-                      <option>$100,000</option>
-                      <option>$150,000</option>
-                      <option>$200,000</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-b">Search Property</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <!--/ Form Search End /-->
-      
-        <!--/ Nav Star /-->
-        <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-            <div class="container">
-              <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-              <a class="navbar-brand text-brand" href="index.html">Block<span class="color-b">Rentals</span></a>
-              <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
-                data-target="#navbarTogglerDemo01" aria-expanded="false">
-                <span class="fa fa-search" aria-hidden="true"></span>
-              </button>
-              <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="property-grid.html">Properties</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="createListing.html">Create a Listing</a>
-                  </li>
-                
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      Sign Up/Login
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="signup.html">Sign Up</a>
-                      
-                      <a class="dropdown-item" href="login.html">Login</a>
-                      
-                    </div>
-                  </li>
-                  
-                </ul>
-              </div>
-              <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
-                data-target="#navbarTogglerDemo01" aria-expanded="false">
-                <span class="fa fa-search" aria-hidden="true"></span>
-              </button>
-              
-            </div>
-          </nav>
-          <!--/ Nav End /-->
-      
-        <!--/ Intro Single star /-->
-        <section class="intro-single">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12 col-lg-8">
-                <div class="title-single-box">
-                  <h1 class="title-single">Create a Listing</h1>
-                  
-                
-              </div>
-            </div>
-          </div>
-        </section>
-        <!--/ Intro Single End /-->
-    <div class="container-fluid">
-        <div class="row mx-1">
-            
-            <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 bg-white shadow mb-5 border border-primary">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 p-4 bg-primary divCover">
-                        <img src="../images/firebase_logo.png" alt="Firebase cover image">
-                    </div>
-                    <div class="col-lg-6 col-md-6 p-lg-5 p-md-5 px-3 py-4">
-                        <div id="signUpForm">
-                            <h2 class="h2 text-center text-dark mb-3">Sign Up</h2>
-                            <div class="form-group">
-                                <label for="userFullName">Name<span class="text-danger ml-1">*</span></label>
-                                <input type="text" class="form-control" id="userFullName" onblur="checkUserFullName()" placeholder="name">
-                                <small id="userFullNameError" class="form-text text-danger">This Field must be filled.</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="userSurname">Surname<span class="text-danger ml-1">*</span></label>
-                                <input type="text" class="form-control" id="userSurname" onblur="checkUserSurname()" placeholder="surname">
-                                <small id="userSurnameError" class="form-text text-danger">This Field must be filled.</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="userEmail">Email address<span class="text-danger ml-1">*</span></label>
-                                <input type="email" class="form-control" id="userEmail" onblur="checkUserEmail()" placeholder="mail@mail.com">
-                                <small id="userEmailError" class="form-text text-danger">Please check your email address.</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="userPhone">Phone Number<span class="text-danger ml-1">*</span></label>
-                                <input type="text" class="form-control" id="userPhone" pattern="[0-9]{10}" placeholder="">
-                           
-                            </div>
-                            <div class="form-group">
-                                <label for="userBio">User Biography<span class="text-danger ml-1">*</span></label>
-                                <input type="text" class="form-control" id="userBio" placeholder="Tell us a bit about yourself..">
-                           
-                            </div>
-                            <div class="form-group">
-                                <label for="userPassword">Password<span class="text-danger ml-1">*</span></label>
-                                <input type="password" class="form-control" id="userPassword" onblur="checkUserPassword()" placeholder="**********">
-                                <small id="userPasswordError" class="form-text text-danger">Your password must be uppercase, lowercase and more than 10 characters.</small>
-                            </div>
-                            <button type="button" class="btn btn-outline-primary text-uppercase mb-3" onclick="signUp()">Sign Up</button>
-                            <p>Already a member? Sign in: <a href="../index.html"><strong class="text-primary text-uppercase showSignInForm">Sign In</strong></a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--/ footer Star /-->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-<footer>
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.js"></script>
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div w3-include-html="header.html">
+      </div>
+
+      <script src="http://www.w3schools.com/lib/w3data.js"></script>
+
+
+
+
+
+<script>
+w3IncludeHTML();
+</script>
+        <!--/ Nav End /-->
+
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">Sign Up</h1>
+
+
+          </div>
+        </div>
+      </div>
+  </section>
+  <!--/ Intro Single End /-->
+  <div class="container-fluid">
+    <div class="row mx-1">
+
+      <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 bg-white shadow mb-5 ">
+        <div class="row">
+
+          <center><img src="img/property-3.jpg" alt="Firebase cover image" style="width: 650px; height:800px;"></center>
+
+          <div class="col-lg-6 col-md-6 p-lg-5 p-md-5 px-3 py-4">
+            <div id="signUpForm">
+
+              <div class="form-group">
+
+                <label for="userFullName"><span style="color: black">First Name </span></label>
+                <label for="userFullName"><span class="text-danger ml-1">*</span></label>
+                <input type="text" class="form-control" id="userFullName" placeholder="First Name"
+                  style="border: 1px solid grey">
+                <small id="userFullNameError" class="form-text text-danger" style="visibility: hidden">This Field must
+                  be filled.</small>
+              </div>
+              <div class="form-group">
+                <label for="userFullName"><span style="color: black;border:gray">SurName </span></label>
+                <label for="userSurname"><span class="text-danger ml-1">*</span></label>
+                <input type="text" class="form-control" id="userSurname" placeholder="Surname"
+                  style="border: 1px solid grey">
+                <small id="userSurnameError" class="form-text text-danger" style="visibility: hidden">This Field must be
+                  filled.</small>
+              </div>
+              <div class="form-group">
+                <label for="userFullName"><span style="color: black;border:gray">Email Address </span></label>
+                <label for="userEmail"><span class="text-danger ml-1">*</span></label>
+                <input type="email" class="form-control" id="userEmail" placeholder="mail@mail.com"
+                  style="border: 1px solid grey">
+                <small id="userEmailError" class="form-text text-danger" style="visibility: hidden">Please check your
+                  email address.</small>
+              </div>
+              <div class="form-group">
+                <label for="userFullName"><span style="color: black;border:gray">Phone Number</span></label>
+                <label for="userPhone"><span class="text-danger ml-1">*</span></label>
+                <input type="text" class="form-control" id="userPhone" pattern="[0-9]{10}" placeholder="Phone Number"
+                  style="border: 1px solid grey">
+
+              </div>
+              <div class="form-group">
+                <label for="userFullName"><span style="color: black;border:gray">User Biography</span></label>
+                <label for="userBio"><span class="text-danger ml-1">*</span></label>
+                <input type="text" class="form-control" id="userBio" placeholder="Tell us a bit about yourself.."
+                  style="border: 1px solid grey">
+
+              </div>
+             
+              <div class="form-group">
+                <label for="userFullName"><span style="color: black;border:gray">Password</span></label>
+                <label for="userPassword"><span class="text-danger ml-1">*</span></label>
+                <input type="password" class="form-control" id="userPassword" placeholder="**********"
+                  style="border: 1px solid grey">
+                <small id="userPasswordError" class="form-text text-danger" style="visibility: hidden">Your password
+                  must be uppercase, lowercase, numbers and more than 10 characters.</small>
+              </div>
+              <button type="button" class="btn-reg" style="background-color:#2eca6a; color:white; border:hidden"  onclick="signUp()">Sign Up</button>
+              <p style="color:  black">Already a member? <a href="login.html"><strong class="btn-reg">Sign
+                    In</strong></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ footer Star /-->
+
+  <footer>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -326,50 +219,60 @@
     </div>
   </footer>
   <!--/ Footer End /-->
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>   
-<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
+  <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
 
-<!-- Add Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
 
-<script>
+  <script>
     // Your web app's Firebase configuration
     const firebaseConfig = {
-    apiKey: "AIzaSyA9GjDQqZsQ1Dt3emE8fH1hxnqezo5i2oY",
-    authDomain: "fyp-emma.firebaseapp.com",
-    databaseURL: "https://fyp-emma.firebaseio.com",
-    projectId: "fyp-emma",
-    storageBucket: "fyp-emma.appspot.com",
-    messagingSenderId: "872535331218",
-    appId: "1:872535331218:web:33a5459ae074ed2858f14b",
-    measurementId: "G-ZCGVCX75EZ"
-  };
+      apiKey: "AIzaSyA9GjDQqZsQ1Dt3emE8fH1hxnqezo5i2oY",
+      authDomain: "fyp-emma.firebaseapp.com",
+      databaseURL: "https://fyp-emma.firebaseio.com",
+      projectId: "fyp-emma",
+      storageBucket: "fyp-emma.appspot.com",
+      messagingSenderId: "872535331218",
+      appId: "1:872535331218:web:33a5459ae074ed2858f14b",
+      measurementId: "G-ZCGVCX75EZ"
+    };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-  
-  
-  
-  
-      <!-- Custom JavaScript -->
-      <script src="js/profile.js"></script>
-      <script src="app.js"></script>
-  
-  </body>
-  </html>
+
+
+<script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+  <!-- Custom JavaScript -->
+  <script src="js/profile.js"></script>
+  <script src="app.js"></script>
+
+
+</body>
+
+</html>

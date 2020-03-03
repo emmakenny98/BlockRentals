@@ -1,0 +1,145 @@
+<html>
+  <head>
+  <style> #page {
+        background: #FFF;
+        padding: 20px;
+        margin: 20px;
+      }
+      
+      #demo-basic {
+        width: 1000px;
+        height: 1000px;
+      }</style>
+      <link rel="stylesheet" href="croppie.css" />
+
+  </head>
+  <body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+      <script>// As a jQuery plugin
+            $('#demo').croppie({
+              url: '1.jpg',
+            });
+            $('#image-demo').croppie();
+            
+            // As a Vanilla JavaScript plugin
+            var instance = new Croppie(document.getElementById('demo'), {
+                url: '1.jpg'
+            });
+            var instance = new Croppie(document.getElementById('image-demo'));</script>
+            <script>$('#demo').croppie({
+
+                    // viewport options
+                    viewport: {
+                      width: 800,
+                      height: 600,
+                      type: 'square' // or 'circle'
+                    },
+                  
+                    // boundary options
+                    boundary: {
+                      width: 1000,
+                      height: 1000
+                    },
+                  
+                    // orientation controls
+                    orientationControls: {
+                      enabled: true,
+                      leftClass: '',
+                      rightClass: ''
+                    },
+                  
+                    // resize controls
+                    resizeControls: {
+                      width: true,
+                      height: true
+                    },
+                  
+                    // addiontal CSS class
+                    customClass: '',
+                  
+                    // enable image zoom
+                    enable<a href="https://www.jqueryscript.net/zoom/">Zoom</a>: true,
+                  
+                    // enable image resize
+                    enableResize: false,
+                  
+                    // show image zoom control
+                    showZoomer: true,
+                  
+                    // image zoom with mouse wheel
+                    mouseWheelZoom: true,
+                  
+                    // enable exif orientation reading
+                    enableExif: false,
+                  
+                    // restrict zoom so image cannot be smaller than viewport
+                    enforceBoundary: true,
+                  
+                    // enable orientation
+                    enableOrientation: false,
+                  
+                    // enable key movement
+                    enableKeyMovement: true,
+                  
+                    // callback
+                    up<a href="https://www.jqueryscript.net/time-clock/">date</a>: function () { }
+                    
+                  });</script>
+                  <script>// get result from croppie
+                        $('#demo').croppie('get');
+                        
+                        /* get cropped image
+                           result({ type, size, format, quality, circle })
+                           type: The type of result to return:
+                             'base64':  returns a the cropped image encoded in base64
+                             'html': returns html of the image positioned within an div of hidden overflow
+                             'blob': returns a blob of the cropped image
+                             'rawcanvas': returns the canvas element allowing you to manipulate prior to getting the resulted image
+                           size: The size of the cropped image defaults to 'viewport'
+                             'viewport': the size of the resulting image will be the same width and height as the viewport
+                             'original': the size of the resulting image will be at the original scale of the image
+                             {width, height}: an object defining the width and height. If only one dimension is specified, the other will be calculated using the viewport aspect ratio.
+                           format: The image format. Valid values:'jpeg'|'png'|'webp'
+                           quality: between 0 and 1 indicating image quality.
+                           circle: force the result to be cropped into a circle
+                        */
+                        $('#demo').croppie('result', 'canvas').then(function (img) {
+                          //img is html positioning & sizing the image correctly if resultType is 'html'
+                          //img is base64 url of cropped image if resultType is 'canvas' 
+                        });
+                        
+                        /* bind an image to croppie
+                           bind({ url, points, orientation, zoom })
+                           url: URL to image
+                           points: Array of points that translate into [topLeftX, topLeftY, bottomRightX, bottomRightY]
+                           zoom: Apply zoom after image has been bound
+                           orientation: Custom orientation: 
+                             1: unchanged
+                             2: flipped horizontally
+                             3: rotated 180 degrees
+                             4: flipped vertically
+                             5: flipped horizontally, then rotated left by 90 degrees
+                             6: rotated clockwise by 90 degrees
+                             7: flipped horizontally, then rotated right by 90 degrees
+                             8: rotated counter-clockwise by 90 degrees
+                        */
+                        $('#demo').croppie('bind',{ 
+                          url: 'path/to/image.jpg', 
+                          points: [x1, y1, x2, y2] 
+                        });</script>
+                        <script>// As a jQuery plugin
+                                $('.my-element').on('update.croppie', function(ev, cropData) {
+                                  // do something
+                                });
+                                
+                                // As a Vanilla JavaScript plugin
+                                document.getElementById('#my-element').addEventListener('update', function(ev) { 
+                                  var cropData = ev.detail; 
+                                });</script>
+        <div id="demo"></div>
+        
+        <img id="image-demo" src="img/property-1.jpg" />
+        
+  </body>
+</html>

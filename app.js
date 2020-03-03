@@ -1,29 +1,53 @@
-
 var result = null;
 var addresses = [];
 var currentUser, uid, firstName, surName, email, phone, bio;
 var carouselArray = [];
 
-firebase.auth().onAuthStateChanged((user)=>{
-    
+firebase.auth().onAuthStateChanged(function(user) {
+  
   //   User is signed in.
-      currentUser = firebase.auth().currentUser;
+      
+      user = firebase.auth().currentUser;
       if(user != null){
         uid = user.uid;
     }
-    console.log(currentUser);
+
+    if(user ==null){
+  
+      document.getElementById("user-name").innerHTML = "SignUp/Login";
+      document.getElementById("dropdown-1").href = "signup.html";
+      document.getElementById("dropdown-2").href = "login.html";
+      document.getElementById("dropdown-1").innerHTML = "SignUp";
+      document.getElementById("dropdown-2").innerHTML = "Login";
+      document.getElementById("profile-pic").src = "user.png";
+    }
+   
     let firebaseRefKey = firebase.database().ref().child(uid);
     firebaseRefKey.on('value', (dataSnapShot)=>{
          firstName = dataSnapShot.val().userFullName;
           surName = dataSnapShot.val().userSurname;
-         
+          var fileName = dataSnapShot.val().image;
          email = dataSnapShot.val().userEmail;
          phone = dataSnapShot.val().userPhone;
          bio = dataSnapShot.val().userBio;
-  
+         
+         var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
+            storageRef.getDownloadURL().then(function(url) {
+                
+                //document.getElementById("userPfAvatar").src = url;
+                document.getElementById("profile-pic").src = url;
+                var nameFull = dataSnapShot.val().userFullName + " " +dataSnapShot.val().userSurname;
+                document.getElementById("user-name").innerHTML = nameFull;
+                document.getElementById("dropdown-1").href = "listings.html";
+                document.getElementById("dropdown-2").href = "profile.html";
+                document.getElementById("dropdown-1").innerHTML = "My Listings";
+                document.getElementById("dropdown-2").innerHTML = "My Profile";
+            })
+   
+          
 });
-  
 });
+
 
 
 App = {
@@ -62,11 +86,23 @@ App = {
   			App.contracts.CreateListing = TruffleContract(CreateListingArtifact);
   			
               App.contracts.CreateListing.setProvider(App.web3Provider);
+              
+                App.printCarousel(1);
+                App.printCarousel(2);
+                App.printCarousel(3);
+
+              
+            
+              App.printLatest();
+              App.handleMyListings();
               App.handleHouse();
+              
+             
               propertySingleChange();
               contractChange();
               completeContract();
-              App.printLatest();
+             
+             
               
 
               
@@ -79,10 +115,140 @@ App = {
   	bindEvents: function() {
       $(document).on('click', '.btn-reg', App.handleCreateListing);
       $(document).on('click', '.verify', App.verifyTenancy);
-	
+     
   	},
 
+    myListings: function(indexes) {
+      
+       var createListingInstance;
+                var ret = []; 
+                var pageNum = 0;
+              
+            App.contracts.CreateListing.deployed().then(function(instance) {
+                 createListingInstance = instance;
+                for(var i =0; i < indexes.length; i++){
+                    pageNum++;
+                     ret[i] = createListingInstance.getListing.call(indexes[i]).then(function(result) {
+                            var listing= {
+                           
+                          name: result[0],
+                              address: result[1],
+                              price: result[2],
+                              description: result[3],
+                              numBeds: result[4],
+                              numBaths: result[5],
+                              index: result[6],
+                              landName: result[7],
+                              landEmail: result[8],
+                              landPhone: result[9],
+                              landBio: result[10]
+                        };
+                  let firebaseRefKey = firebase.database().ref().child(listing.name);
+     
+        firebaseRefKey.on('value', (dataSnapShot)=>{
+            var name = dataSnapShot.val().image;
+            
+          
+            
+       
+        var storageRef = firebase.storage().ref(listing.name + '/'+name);
 
+        storageRef.getDownloadURL().then(function(url) {
+         
+       
+                    if(email == listing.landEmail){
+                        var example = document.createElement('div');
+                        example.className = "col-md-4";
+                        example.innerHTML = ` <div class="card-box-a card-shadow">
+                          <div class="img-box-a">
+                            <img src="`+url+`" alt="" class="img-a img-fluid" style="width:800px;height:400px;"/>
+                          </div>
+                          <div class="card-overlay">
+                            <div class="card-overlay-a-content">
+                              <div class="card-header-a">
+                                <h2 class="card-title-a">
+                                  <a href="#">`+listing.name+`
+                                </h2>
+                              </div>
+                              <div class="card-body-a">
+                                <div class="price-box d-flex">
+                                  <span class="price-a">rent | € `+listing.price+`</span>
+                                </div>
+                                <a href="property-single.html" class="btn btn-default" id="`+listing.index+`">Click to view</a>
+                                  <span class="ion-ios-arrow-forward"></span>
+                                </a>
+                              </div>
+                              <div class="card-footer-a">
+                                <ul class="card-info d-flex justify-content-around">
+                                  
+                                  <li>
+                                    <h4 class="card-info-title">Beds</h4>
+                                    <span>`+listing.numBeds+`</span>
+                                  </li>
+                                  <li>
+                                    <h4 class="card-info-title">Baths</h4>
+                                    <span>`+listing.numBaths+`</span>
+                                  </li>
+                                  <li>
+                                    
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>`;
+                          
+                      document.getElementById("listings").appendChild(example);
+                      let link = document.getElementById(listing.index);
+                          link.href = link.href + "?q=" + listing.index + "";
+                    }
+                        });
+                        })
+    
+                        })
+                 }
+             })
+
+    },
+    verifyTenancy: function(event) {
+
+      event.preventDefault();
+		
+      var tenantName = getUrlVars()["tenantName"];
+      var tenantEmail = getUrlVars()["tenantEmail"];
+      var landName= getUrlVars()["landName"];
+      var landEmail= getUrlVars()["landEmail"];
+      var propName= getUrlVars()["propName"]; 
+      var addr= getUrlVars()["address"];
+      var start= getUrlVars()["start"];
+      var end= getUrlVars()["end"];
+      var price= getUrlVars()["price"];
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+      
+      today = dd + '/' + mm + '/' + yyyy;
+      
+  
+          var createListingInstance;
+          
+          web3.eth.getAccounts(function(error, accounts) {
+            if (error) {
+                 console.log(error);
+            }
+  
+            var account = accounts[0];
+  
+            App.contracts.CreateListing.deployed().then(function(instance) {
+                 createListingInstance = instance;
+                    return  createListingInstance.addAgreement(landName, tenantName, propName, addr, start, end, price, today, {from: account});
+            }).then(function(result) {
+             
+              document.getElementById("addProperty-form").reset();
+        })
+      });
+    
+    },
   	//Executes solidity function to register an organization
   	handleCreateListing: function(event) {
 
@@ -116,16 +282,19 @@ App = {
     			}
 
          var fullName = firstName+" "+surName;
-         alert(fullName);
-         alert(email);
-         alert(bio);
-         alert(phone);
+        
     			var account = accounts[0];
 
     			App.contracts.CreateListing.deployed().then(function(instance) {
        				createListingInstance = instance;
                   return  createListingInstance.addListing(name, address, price, description, beds, baths, fullName, email, phone, bio, {from: account});
     			}).then(function(result) {
+            Swal.fire(
+              'Your listing has been successfully sent to the blockchain!',
+              'To learn more about blockchain technology, see the information page',
+              'success'
+            )
+            
            
             document.getElementById("addProperty-form").reset();
       })
@@ -169,11 +338,11 @@ App = {
         var storageRef = firebase.storage().ref(listing.name + '/'+fileName);
 
         storageRef.getDownloadURL().then(function(url) {
-          console.log(url);
+          
        
           var photos = document.createElement('div');
           photos.className = "carousel-item-b";
-          photos.innerHTML = `<img src="`+url+`" alt="">`
+          photos.innerHTML = `<img src="`+url+`" alt="" style="width:800px;height:400px;">`
           document.getElementById("property-single-carousel").appendChild(photos);
                             var elem = document.createElement('div');
                             elem.className = "container";
@@ -382,14 +551,14 @@ App = {
         var storageRef = firebase.storage().ref(listing.name + '/'+name);
 
         storageRef.getDownloadURL().then(function(url) {
-          console.log(url);
+          
        
         
                         var example = document.createElement('div');
                         example.className = "col-md-4";
                         example.innerHTML = ` <div class="card-box-a card-shadow">
                           <div class="img-box-a">
-                            <img src="`+url+`" alt="" class="img-a img-fluid"/>
+                            <img src="`+url+`" alt="" class="img-a img-fluid" style="width:800px;height:400px;"/>
                           </div>
                           <div class="card-overlay">
                             <div class="card-overlay-a-content">
@@ -402,7 +571,7 @@ App = {
                                 <div class="price-box d-flex">
                                   <span class="price-a">rent | € `+listing.price+`</span>
                                 </div>
-                                <a href="property-single.html" class="btn btn-default" id="`+listing.index+`">Click to view</a>
+                                <a href="property-single.html" class="btn btn-default" style="color: white" id="`+listing.index+`">Click to view</a>
                                   <span class="ion-ios-arrow-forward"></span>
                                 </a>
                               </div>
@@ -437,6 +606,7 @@ App = {
          }, 
         
 printLatest: function() {
+ 
   var createListingInstance;
                 var ret = []; 
                 var j= 0;
@@ -444,9 +614,9 @@ printLatest: function() {
                 var arrayCar = [];
             App.contracts.CreateListing.deployed().then(function(instance) {
                  createListingInstance = instance;
-                for(var i =0; i < 4; i++){
+                for(var i =0; i < 3; i++){
                     pageNum = i;
-                    console.log(pageNum);
+                   
                      ret[i] = createListingInstance.getListing.call(i).then(function(result) {
 
           var listing= {
@@ -477,7 +647,7 @@ printLatest: function() {
       <div class="card-overlay-a-content">
         <div class="card-header-a">
           <h2 class="card-title-a">
-            <a href="property-single.html?q=`+listing.index+`">2`+listing.name+`</a>
+            <a href="property-single.html?q=`+listing.index+`">`+listing.name+`</a>
           </h2>
         </div>
         <div class="card-body-a">
@@ -513,18 +683,18 @@ printLatest: function() {
 },
  
 
-printCarousel: function() {
+printCarousel: function(id) {
   var createListingInstance;
                 var ret = []; 
-                var j= 0;
+         
 
-                var arrayCar = [];
+       //alert(id);
             App.contracts.CreateListing.deployed().then(function(instance) {
                  createListingInstance = instance;
-                for(var i =0; i < 3; i++){
-                    pageNum = i;
-                    console.log(pageNum);
-                     ret[i] = createListingInstance.getListing.call(i).then(function(result) {
+                
+                   
+             
+                     ret[id] = createListingInstance.getListing.call(id).then(function(result) {
 
           var listing= {
                            
@@ -543,39 +713,20 @@ printCarousel: function() {
                   
                        
                          
-                          var example = document.createElement('div');
-                          example.className = "carousel-item-a intro-item bg-image";
-                          example.style = "background-image: url(img/slide-1.jpg)";
-                          example.innerHTML = `
-          <div class="overlay overlay-a"></div>
-          <div class="intro-content display-table">
-            <div class="table-cell">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <div class="intro-body">
-                      <p class="intro-title-top">`+listing.address+`
-                      <h1 class="intro-title mb-4">
-                        <span class="color-b">`+listing.name+`</h1>
-                      <p class="intro-subtitle intro-price">
-                        <a href="#"><span class="price-a">rent | € `+listing.price+`</span></a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-               
-            document.getElementById("carousel").appendChild(example);
+                         
 
+                          document.getElementById("title"+id).innerHTML = listing.name;
+                          document.getElementById("address"+id).innerHTML = listing.address;
+                          var rent = "RENT | €" + listing.price;
+                          document.getElementById("rent"+id).innerHTML = rent;
+               
+          
 
 
         
 
                           })
-                 }
+                 
              })
          }, 
         
@@ -601,6 +752,31 @@ printCarousel: function() {
        
 
     })	
+}); 
+},
+
+
+ 
+handleMyListings: function() {
+ 
+  var createListingInstance;
+
+  web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+             console.log(error);
+      }
+
+      var account = accounts[0];
+
+      App.contracts.CreateListing.deployed().then(function(instance) {
+             createListingInstance = instance;
+
+          return createListingInstance.getListingIndexes.call(); 
+      }).then(function(result) {
+      App.myListings(result);
+     
+
+  })	
 }); 
 },
 
@@ -844,8 +1020,8 @@ b.  Occupancy. <br><br><br> The Renter(s) may begin occupying the Premises on `+
 a.  Monthly Rent. <br><br><br> The Renter(s) agree to pay the Landlord rent in the amount of €`+price+` to be paid on or before the first day of every month.
 <br><br><br>
 
-<button type="button" onclick=" window.location.href = 'mailto:`+tenantEmail+`?Subject=Rental Agreement for `+propName+`'"  class="btn btn-a">Email to Tenant</button>
-      <button type="button" id="verify" class="btn btn-a">Verify on Blockchain</button>
+<button type="button" onclick=" window.location.href = 'mailto:`+tenantEmail+`?subject=Rental Agreement for `+propName+`&body=Please follow the following link in order to sign your rental agreement for `+propName+`%0D%0A`+window.location.href +`'"  class="btn btn-a">Email to Tenant</button>
+      <button type="button" id="verify" class="btn btn-a verify">Verify on Blockchain</button>
 `
 
     document.getElementById("contract").innerHTML = textContract;
@@ -865,4 +1041,31 @@ function getImage() {
     // Insert url into an <img> tag to "download"
         $scope.imageUrl = url;
     });
+}
+
+function loadProfile() { 
+  //   User is signed in.
+ 
+  user = firebase.auth().currentUser;
+  
+    uid = user.uid;
+
+alert(user);
+let firebaseRefKey = firebase.database().ref().child(uid);
+firebaseRefKey.on('value', (dataSnapShot)=>{
+     firstName = dataSnapShot.val().userFullName;
+      surName = dataSnapShot.val().userSurname;
+      var fileName = dataSnapShot.val().image;
+     email = dataSnapShot.val().userEmail;
+     phone = dataSnapShot.val().userPhone;
+     bio = dataSnapShot.val().userBio;
+     var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
+        storageRef.getDownloadURL().then(function(url) {
+            alert(url);
+            document.getElementById("userPfAvatar").src = url;
+            document.getElementById("profile-pic").src = url;
+            var nameFull = dataSnapShot.val().userFullName + " " +dataSnapShot.val().userSurname;
+            document.getElementById("user-name").innerHTML = nameFull;
+        })
+      })
 }
