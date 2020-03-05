@@ -8,15 +8,12 @@ contract CreateListing {
         uint id; 
 	    string name;
         string addr;
+        string county;
         uint price;
         string description;
         uint numBed;
         uint numBath;
-        string landlordName;
-        string landlordEmail;
-        string landlordPhone;
-        string landlordBio;
-        string pic;
+        string landlordId;
         
 	}
 
@@ -41,21 +38,18 @@ contract CreateListing {
     uint agreementCounter;
 	uint listingCounter;
 	
-    function addListing(string memory name_form, string memory address_form, uint price_form,  string memory description_form, uint numBed_form, uint numBath_form, string memory fullName, string  memory email, string memory phone, string memory bio, string memory pic_form) public {
+    function addListing(string memory name_form, string memory address_form, string memory county_form, uint price_form,  string memory description_form, uint numBed_form, uint numBath_form, string memory landlordId_form) public {
         uint listingId = listingCounter++;
         listings[listingId].id = listingId;
         listings[listingId].name = name_form;
         listings[listingId].addr = address_form;
+        listings[listingId].county = county_form;
         listings[listingId].price = price_form;
-
         listings[listingId].description = description_form;
         listings[listingId].numBed = numBed_form;
         listings[listingId].numBath = numBath_form;
-        listings[listingId].landlordName = fullName;
-        listings[listingId].landlordEmail = email;
-       listings[listingId].landlordPhone = phone;
-       listings[listingId].landlordBio = bio;
-       listings[listingId].pic = pic_form;
+        listings[listingId].landlordId = landlordId_form;
+       
 
        listingIndexes.push(listingId);
         
@@ -91,10 +85,10 @@ contract CreateListing {
         return (agree.landlord, agree.tenant, agree.title, agree.addr, agree.start, agree.end, agree.rent, agree.todayDate);
     }
 
-	function getListing(uint index) public returns (string memory, string memory, uint, string memory, uint, uint, uint, string memory, string memory, string memory, string memory, string memory) {
+	function getListing(uint index) public returns (string memory, string memory, string memory, uint, string memory, uint, uint, uint, string memory) {
  		Listing memory house = listings[index];		
 	
-		return (house.name, house.addr,  house.price,house.description, house.numBed, house.numBath, house.id, house.landlordName, house.landlordEmail, house.landlordPhone, house.landlordBio, house.pic);
+		return (house.name, house.addr, house.county, house.price,house.description, house.numBed, house.numBath, house.id, house.landlordId);
 	}
 
 

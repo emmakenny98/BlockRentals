@@ -3,6 +3,51 @@ var addresses = [];
 var currentUser, uid, firstName, surName, email, phone, bio;
 var carouselArray = [];
 
+firebase.auth().onAuthStateChanged(function(user) {
+  
+    //   User is signed in.
+        
+        user = firebase.auth().currentUser;
+        if(user != null){
+          uid = user.uid;
+      }
+  
+      if(user ==null){
+    
+        document.getElementById("user-name").innerHTML = "SignUp/Login";
+        document.getElementById("dropdown-1").href = "signup.html";
+        document.getElementById("dropdown-2").href = "login.html";
+        document.getElementById("dropdown-1").innerHTML = "SignUp";
+        document.getElementById("dropdown-2").innerHTML = "Login";
+        document.getElementById("profile-pic").src = "user.png";
+      }
+     
+      let firebaseRefKey = firebase.database().ref().child(uid);
+      firebaseRefKey.on('value', (dataSnapShot)=>{
+           firstName = dataSnapShot.val().userFullName;
+            surName = dataSnapShot.val().userSurname;
+             fileName = dataSnapShot.val().image;
+           email = dataSnapShot.val().userEmail;
+           phone = dataSnapShot.val().userPhone;
+           bio = dataSnapShot.val().userBio;
+           
+           callMyListings();
+           var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
+              storageRef.getDownloadURL().then(function(url) {
+                  
+                  //document.getElementById("userPfAvatar").src = url;
+                  document.getElementById("profile-pic").src = url;
+                  var nameFull = dataSnapShot.val().userFullName + " " +dataSnapShot.val().userSurname;
+                  document.getElementById("user-name").innerHTML = nameFull;
+                  document.getElementById("dropdown-1").href = "listings.html";
+                  document.getElementById("dropdown-2").href = "profile.html";
+                  document.getElementById("dropdown-1").innerHTML = "My Listings";
+                  document.getElementById("dropdown-2").innerHTML = "My Profile";
+              })
+     
+            
+  });
+  });
 App = {
 	web3Provider: null,
   	contracts: {},
@@ -39,9 +84,10 @@ App = {
   			App.contracts.CreateListing = TruffleContract(CreateListingArtifact);
   			
               App.contracts.CreateListing.setProvider(App.web3Provider);
+            
+               
               
                
-              App.handleMyListings();
               
             
 		});
@@ -76,8 +122,7 @@ App = {
                               landBio: result[10]
                         };
                  
-        alert(email);
-        alert(listing.landEmail);
+       
         if(email == listing.landEmail){
                         var example = document.createElement('div');
                         example.className = "col-md-4";
@@ -456,3 +501,7 @@ function propertySingleChange() {
   App.printSingle(i);
 }
 
+
+function callMyListings() {
+    App.handleMyListings();
+}

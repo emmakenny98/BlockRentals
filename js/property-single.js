@@ -66,25 +66,34 @@ App = {
                  createListingInstance = instance;
                 
                     ret[i] = createListingInstance.getListing.call(i).then(function(result) {
-                            var listing= {
+                              var listing= {
                            
-                            name: result[0],
-                            address: result[1],
-                            price: result[2],
-                            description: result[3],
-                            numBeds: result[4],
-                            numBaths: result[5],
-                            index: result[6],
-                            landName: result[7],
-                            landEmail: result[8],
-                            landPhone: result[9],
-                            landBio: result[10], 
-                            landPic: result[11]
-                        };
-                        
-             
+                              name: result[0],
+                                address: result[1],
+                                county: result[2],
+                                price: result[3],
+                                description: result[4],
+                                numBeds: result[5],
+                                numBaths: result[6],
+                                index: result[7],
+                                landId: result[8],
+                                
+                          };
+          console.log(listing);
+                        alert(listing.landId);
+          let firebaseRefKey = firebase.database().ref().child(listing.landId);
+          firebaseRefKey.on('value', (dataSnapShot)=>{
+               firstName = dataSnapShot.val().userFullName;
+                surName = dataSnapShot.val().userSurname;
+                 fileName = dataSnapShot.val().image;
+               email = dataSnapShot.val().userEmail;
+               phone = dataSnapShot.val().userPhone;
+               bio = dataSnapShot.val().userBio;
       
-       
+               var landlordName = firstName +" "+ surName;
+               var storageRef = firebase.storage().ref(listing.landId + '/'+fileName);
+               storageRef.getDownloadURL().then(function(url) {
+                   
                             var elem = document.createElement('div');
                             elem.className = "container";
                             elem.innerHTML=`<div class="row">
@@ -202,13 +211,13 @@ App = {
                           </div>
                           <div class="row">
                             <div class="col-md-6 col-lg-4">
-                              <img src="`+listing.landPic+`" alt="" class="img-fluid">
+                              <img src="`+url+`" alt="" class="img-fluid">
                             </div>
                             <div class="col-md-6 col-lg-4">
                             <div class="property-agent">
-                            <h4 class="title-agent">`+listing.landName+`</h4>
+                            <h4 class="title-agent">`+landlordName+`</h4>
                             <p class="color-text-a">
-                             `+listing.landBio+`
+                             `+bio+`
                             </p>
                            
                             </div>
@@ -218,18 +227,18 @@ App = {
                               <ul class="list-unstyled">
                               <li class="d-flex justify-content-between">
                                 <strong>Phone:</strong>
-                                <span class="color-text-a">`+listing.landPhone+`</span>
+                                <span class="color-text-a">`+phone+`</span>
                               </li>
                               <li class="d-flex justify-content-between">
                                 
                               </li>
                               <li class="d-flex justify-content-between">
                                 <strong>Email:</strong>
-                                <span class="color-text-a">`+listing.landEmail+`</span>
+                                <span class="color-text-a">`+email+`</span>
                               </li>
                               <br><br>
                               <p class="color-text-a">
-                              If you are interested in renting this property, please contact the `+listing.landName+` by clicking the link below!<br><br>
+                              If you are interested in renting this property, please contact `+landlordName+` by clicking the link below!<br><br>
                              </p>
                                 
                                   <li class="d-flex justify-content-between">
@@ -291,6 +300,8 @@ App = {
                         })
                  
              })
+      })
+    })
          }, 
 
   	

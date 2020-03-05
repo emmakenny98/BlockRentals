@@ -74,51 +74,51 @@ function checkUserBio(){
         document.getElementById("userBioError").style.display = "none";
     }
 }
-// xxxxxxxxxx Submitting and Creating new user in firebase authentication xxxxxxxxxx
-function signUp(){
-        var userFullName = document.getElementById("userFullName").value;
-        var userSurname = document.getElementById("userSurname").value;
-        var userEmail = document.getElementById("userEmail").value;
-        var userPhone = document.getElementById("userPhone").value;
-        var userPassword = document.getElementById("userPassword").value;
+// xxxxxxxxxx Submitting and Creating new user in firebase authentication xxxxxxxxxx
+function signUp(){
+        var userFullName = document.getElementById("userFullName").value;
+        var userSurname = document.getElementById("userSurname").value;
+        var userEmail = document.getElementById("userEmail").value;
+        var userPhone = document.getElementById("userPhone").value;
+        var userPassword = document.getElementById("userPassword").value;
         var userBio = document.getElementById("userBio").value;
-        var userFullNameFormate = /^([A-Za-z.\s_-])/;    
-        var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
+        var userFullNameFormate = /^([A-Za-z.\s_-])/;    
+        var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
     
-        var checkUserFullNameValid = userFullName.match(userFullNameFormate);
-        var checkUserEmailValid = userEmail.match(userEmailFormate);
-        var checkUserPasswordValid = userPassword.match(userPasswordFormate);
+        var checkUserFullNameValid = userFullName.match(userFullNameFormate);
+        var checkUserEmailValid = userEmail.match(userEmailFormate);
+        var checkUserPasswordValid = userPassword.match(userPasswordFormate);
     
-        if(checkUserFullNameValid == null){
-            return checkUserFullName();
-        }else if(userSurname === ""){
-            return checkUserSurname();
+        if(checkUserFullNameValid == null){
+            return checkUserFullName();
+        }else if(userSurname === ""){
+            return checkUserSurname();
             
-        }else if(checkUserEmailValid == null){
-            return checkUserEmail();
-        }else if(checkUserPasswordValid == null){
-            return checkUserPassword();
-        }else{
-            firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then((success) => {
-                var user = firebase.auth().currentUser;
-                var uid;
-                if (user != null) {
-                    uid = user.uid;
-                }
+        }else if(checkUserEmailValid == null){
+            return checkUserEmail();
+        }else if(checkUserPasswordValid == null){
+            return checkUserPassword();
+        }else{
+            firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then((success) => {
+                var user = firebase.auth().currentUser;
+                var uid;
+                if (user != null) {
+                    uid = user.uid;
+                }
     
-                var firebaseRef = firebase.database().ref();
-                var userData = {
-                    userFullName: userFullName,
-                    userSurname: userSurname,
-                    userEmail: userEmail,
-                    userPhone: userPhone,
+                var firebaseRef = firebase.database().ref();
+                var userData = {
+                    userFullName: userFullName,
+                    userSurname: userSurname,
+                    userEmail: userEmail,
+                    userPhone: userPhone,
                     userBio: userBio, 
                   
                    
-                }
-                firebaseRef.child(uid).set(userData);
-                Swal.fire(
+                }
+                firebaseRef.child(uid).set(userData);
+                Swal.fire(
         'Signed Up!',
         '',
         'success',
@@ -128,9 +128,9 @@ function signUp(){
             window.location.replace("./profile.html");
         }, 1000)
     });
-               
-            });
-        }
+               
+            });
+        }
     }
     
 // xxxxxxxxxx Working For Sign In Form xxxxxxxxxx
@@ -268,7 +268,7 @@ function saveProfile(){
     let userSurname = document.getElementById("userSurname").value 
     let userPhone = document.getElementById("userPhone").value;
     let userBio = document.getElementById("userBio").value;
-    var userEmail = document.getElementById("userEmail").value;
+    var userEmail = document.getElementById("userEmail").value;
     let user = firebase.auth().currentUser;
     var fileButton = document.getElementById("userAvatar");
     var file = fileButton.files[0];
@@ -276,9 +276,9 @@ function saveProfile(){
     var storageRef = firebase.storage().ref(user.uid + '/'+file.name);
     storageRef.put(file);
 
-     var firebaseRef = firebase.database().ref();
-          
-     
+     var firebaseRef = firebase.database().ref();
+          
+     
 
     var userFullNameFormate = /^([A-Za-z.\s_-])/; 
     var checkUserFullNameValid = userFullName.match(userFullNameFormate);
@@ -296,7 +296,7 @@ function saveProfile(){
         var userData = {
             userFullName: userFullName,
             userSurname: userSurname,
-            userEmail: userEmail,
+            userEmail: userEmail,
             userPhone: userPhone,
             userBio: userBio,
             image:file.name

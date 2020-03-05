@@ -72,6 +72,7 @@ App = {
 		
 		var name = document.getElementById("name-form").value;
         var address = document.getElementById("address-form").value;
+        var county = document.getElementById("county-form").value;
         var price = document.getElementById("price-form").value;
         
         var description = document.getElementById("description-form").value;
@@ -110,13 +111,13 @@ App = {
         
     			var account = accounts[0];
                 user = firebase.auth().currentUser;
-                alert(fileName);
+                alert(user.uid);
                 var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
                 storageRef.getDownloadURL().then(function(url) {
                     console.log(url);
     			App.contracts.CreateListing.deployed().then(function(instance) {
        				createListingInstance = instance;
-                  return  createListingInstance.addListing(name, address, price, description, beds, baths, fullName, email, phone, bio, url,  {from: account});
+                  return  createListingInstance.addListing(name, address, county, price, description, beds, baths, user.uid,  {from: account});
     			}).then(function(result) {
             Swal.fire(
               'Your listing has been successfully sent to the blockchain!',

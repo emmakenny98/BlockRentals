@@ -190,48 +190,51 @@
   <script src="lib/easing/easing.min.js"></script>
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+ 
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+ <script src="/__/firebase/7.7.0/firebase-app.js"></script>
 
-<!-- Firebase -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>  
-<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+ <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+ <script src="/__/firebase/7.7.0/firebase-analytics.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+  
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
- https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
-<!-- Add Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
-
-
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"> 
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"> 
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"> 
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-storage.js"> 
+  </script>
 <script>
-// Your web app's Firebase configuration
-const firebaseConfig = {
-apiKey: "AIzaSyA9GjDQqZsQ1Dt3emE8fH1hxnqezo5i2oY",
-authDomain: "fyp-emma.firebaseapp.com",
-databaseURL: "https://fyp-emma.firebaseio.com",
-projectId: "fyp-emma",
-storageBucket: "fyp-emma.appspot.com",
-messagingSenderId: "872535331218",
-appId: "1:872535331218:web:33a5459ae074ed2858f14b",
-measurementId: "G-ZCGVCX75EZ"
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyA9GjDQqZsQ1Dt3emE8fH1hxnqezo5i2oY",
+  authDomain: "fyp-emma.firebaseapp.com",
+  databaseURL: "https://fyp-emma.firebaseio.com",
+  projectId: "fyp-emma",
+  storageBucket: "fyp-emma.appspot.com",
+  messagingSenderId: "872535331218",
+  appId: "1:872535331218:web:33a5459ae074ed2858f14b",
+  measurementId: "G-ZCGVCX75EZ"
 };
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
 </script>
 
 
 
+  
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+  <script src="js/nav.js"></script>
+ 
   <script src="js/truffle-contract.js"></script>
   <script src="js/web3.min.js"></script>
   
-  <script src="app.js"></script>
-
+  
 </body>
 </html>
