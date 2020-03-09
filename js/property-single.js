@@ -52,10 +52,13 @@ App = {
 		});
         
         
-		return;
+		return App.bindEvents();
   	},
 
-  
+    bindEvents: function() {
+      $(document).on('click', '.navbar-toggle-box-collapse', openSearch);
+      $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
+    },
 
    printSingle: function(i) { 
             var createListingInstance;
@@ -250,9 +253,16 @@ App = {
                               
                                 </ul>
                                 <div class="col-md-12 col-lg-4">
-                            
-                           
-                              </div>
+                                <div class="property-contact">
+                                
+                                    <div class="row">
+                                      <div class="col-md-12 mb-1">
+                                      <button type="button" onclick ="window.location.href='createContract.html?q=`+listing.index+`'" class="btn btn-a" id="btn-contractRent">Create a Rental Contract</a>
+                                      </div>
+                                      </div>
+                                      </div>
+                               
+                                  </div>
                             </div>
                             
                         
@@ -340,3 +350,11 @@ function propertySingleChange() {
   App.printSingle(i);
 }
 
+function openSearch() {
+  $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
+}
+
+function closeSearch() {
+  $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
+      $('.menu-list ul').slideUp(700);
+}

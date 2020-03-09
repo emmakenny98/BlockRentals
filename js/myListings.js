@@ -87,15 +87,19 @@ App = {
             
                
               
-               
+               callMyListings();
               
             
 		});
         
         
-		return;
+		return App.bindEvents();
   	},
 
+      bindEvents: function() {
+        $(document).on('click', '.navbar-toggle-box-collapse', openSearch);
+        $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
+      },
 
       myListings: function(indexes) {
                 var createListingInstance;
@@ -107,26 +111,35 @@ App = {
                 for(var i =0; i < indexes.length; i++){
                     pageNum++;
                      ret[i] = createListingInstance.getListing.call(indexes[i]).then(function(result) {
-                            var listing= {
+                              var listing= {
                            
-                          name: result[0],
-                              address: result[1],
-                              price: result[2],
-                              description: result[3],
-                              numBeds: result[4],
-                              numBaths: result[5],
-                              index: result[6],
-                              landName: result[7],
-                              landEmail: result[8],
-                              landPhone: result[9],
-                              landBio: result[10]
-                        };
+                                  name: result[0],
+                                    address: result[1],
+                                    county: result[2],
+                                    price: result[3],
+                                    description: result[4],
+                                    numBeds: result[5],
+                                    numBaths: result[6],
+                                    index: result[7],
+                                    landId: result[8],
+                                    
+                              };
                  
-       
-        if(email == listing.landEmail){
+              let firebaseRefKey = firebase.database().ref().child(listing.landId);
+              firebaseRefKey.on('value', (dataSnapShot)=>{
+                   firstName = dataSnapShot.val().userFullName;
+                    surName = dataSnapShot.val().userSurname;
+                     fileName = dataSnapShot.val().image;
+                   landEmail = dataSnapShot.val().userEmail;
+                   phone = dataSnapShot.val().userPhone;
+                   bio = dataSnapShot.val().userBio;
+          
+                   var landlordName = firstName +" "+ surName;
+
+        if(email == landEmail){
                         var example = document.createElement('div');
                         example.className = "col-md-4";
-                        example.innerHTML = ` <div class="card-box-a card-shadow">
+                        example.innerHTML = ` <div class="card-box-a card-shadow" onclick="window.location='property-single.html?q=`+listing.index+`'">
                           <div class="img-box-a" >
                           <img src="" alt="" id="pic-grid`+listing.index+`" class="img-a img-fluid" style="width:800px;height:400px;"/>
                           </div>
@@ -157,7 +170,8 @@ App = {
                                     <span>`+listing.numBaths+`</span>
                                   </li>
                                   <li>
-                                    
+                                  <h4 class="card-info-title">County</h4>
+                                  <span>`+listing.county+`</span>
                                   </li>
                                 </ul>
                               </div>
@@ -198,6 +212,7 @@ App = {
       })
       
         }
+    })
                                });     
                  }
              })
@@ -212,21 +227,20 @@ App = {
              createListingInstance = instance;
             
                 ret[i] = createListingInstance.getListing.call(i).then(function(result) {
-                        var listing= {
-                       
-                        name: result[0],
-                        address: result[1],
-                        price: result[2],
-                        description: result[3],
-                        numBeds: result[4],
-                        numBaths: result[5],
-                        index: result[6],
-                        landName: result[7],
-                        landEmail: result[8],
-                        landPhone: result[9],
-                        landBio: result[10], 
-                        landPic: result[11]
-                    };
+                            var listing= {
+                           
+                              name: result[0],
+                                address: result[1],
+                                county: result[2],
+                                price: result[3],
+                                description: result[4],
+                                numBeds: result[5],
+                                numBaths: result[6],
+                                index: result[7],
+                                landId: result[8],
+                                
+                          };
+             
                     
          
   
@@ -380,14 +394,24 @@ App = {
                             
                               <li class="d-flex justify-content-between">
                               <div class="col-md-6 col-lg-4">
-                              <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick=" window.location.href = 'mailto:`+listing.landEmail+`?Subject=`+listing.name+`'"  class="btn btn-a">Send Message</button>
-                              
+                              <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick=" window.location.href = 'mailto:`+landEmail+`?Subject=`+listing.name+`'"  class="btn btn-a">Send Message</button>
+                              <button type="button" style="background-color:#2eca6a; color:white; border:hidden" href="CreateContract.html">Create Contract</button>
                             </div>
                               </li>
                           
                             </ul>
+                            
                             <div class="col-md-12 col-lg-4">
-                        
+                            <div class="property-contact">
+                            
+                                <div class="row">
+                                  <div class="col-md-12 mb-1">
+                                  <button type="button" onclick ="window.location.href='createContract.html?q=`+listing.index+`'" class="btn btn-a" id="btn-contractRent">Create a Rental Contract</a>
+                                  </div>
+                                  </div>
+                                  </div>
+                           
+                              </div>
                        
                           </div>
                         </div>
@@ -504,4 +528,13 @@ function propertySingleChange() {
 
 function callMyListings() {
     App.handleMyListings();
+}
+
+function openSearch() {
+    $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
+}
+
+function closeSearch() {
+    $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
+        $('.menu-list ul').slideUp(700);
 }

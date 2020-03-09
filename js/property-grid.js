@@ -62,6 +62,9 @@ App = {
         getCounty(select);
         })
 
+        $(document).on('click', '.navbar-toggle-box-collapse', openSearch);
+        $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
+
   	},
 
 
@@ -76,10 +79,9 @@ App = {
             <div class="grid-option">
               <form>
                 <select class="custom-select">
-                  <option value="0">All</option>
+                  <option value="0">Old to New</option>
                   <option selected>New to Old</option>
-                  <option value="2">For Rent</option>
-                  <option value="3">For Sale</option>
+                
                 </select>
               </form>
               </div>
@@ -232,10 +234,9 @@ App = {
         <div class="grid-option">
           <form>
             <select class="custom-select">
-              <option selected>All</option>
+              <option selected>Old to New</option>
               <option value="1">New to Old</option>
-              <option value="2">For Rent</option>
-              <option value="3">For Sale</option>
+              
             </select>
           </form>
           </div>
@@ -456,9 +457,11 @@ App = {
                           };
                         var example = document.createElement('div');
                         example.className = "col-md-4";
-                        example.innerHTML = ` <div class="card-box-a card-shadow">
-                          <div class="img-box-a" >
-                          <img src="" alt="" id="pic-grid`+listing.index+`" class="img-a img-fluid" style="width:800px;height:400px;"/>
+                        example.innerHTML = ` <div class="card-box-a card-shadow" onclick="window.location='property-single.html?q=`+listing.index+`'">
+                          <div class="img-box-a">
+                         
+                          <img src="" alt="" id="pic-grid`+listing.index+`"  class="img-a img-fluid" style="width:800px;height:400px;"/>
+                          
                           </div>
                           <div class="card-overlay">
                             <div class="card-overlay-a-content">
@@ -499,6 +502,8 @@ App = {
                       document.getElementById("houses").appendChild(example);
                       let link = document.getElementById(listing.index);
                           link.href = link.href + "?q=" + listing.index + ""; 
+                         
+                          
                           var photos = [];
                           var urls = [];
       
@@ -635,3 +640,34 @@ $(function() {
   App.handleCounty(value); 
  }
   
+ function openSearch() {
+  $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
+}
+
+function closeSearch() {
+  $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
+      $('.menu-list ul').slideUp(700);
+}
+
+function search(){
+  
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("keyword");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("houses");
+    li = ul.getElementsByClassName("col-md-4");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+           
+        }
+
+    }
+
+    closeSearch();
+
+}

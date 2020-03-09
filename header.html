@@ -1,5 +1,8 @@
-<div class="click-closed"></div>
 
+        
+        <div class="click-closed"></div>
+
+<!--/ Form Search Star /-->
 <div class="box-collapse">
   <div class="title-box-d">
     <h3 class="title-d">Search Property</h3>
@@ -11,32 +14,11 @@
         <div class="col-md-12 mb-2">
           <div class="form-group">
             <label for="Type">Keyword</label>
-            <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+            <input type="text" class="form-control form-control-lg form-control-a" id="keyword" placeholder="Keyword">
           </div>
         </div>
-        <div class="col-md-6 mb-2">
-          <div class="form-group">
-            <label for="Type">Type</label>
-            <select class="form-control form-control-lg form-control-a" id="Type">
-              <option>All Type</option>
-              <option>For Rent</option>
-              <option>For Sale</option>
-              <option>Open House</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6 mb-2">
-          <div class="form-group">
-            <label for="city">City</label>
-            <select class="form-control form-control-lg form-control-a" id="city">
-              <option>All City</option>
-              <option>Alabama</option>
-              <option>Arizona</option>
-              <option>California</option>
-              <option>Colorado</option>
-            </select>
-          </div>
-        </div>
+    
+       
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="bedrooms">Bedrooms</label>
@@ -45,18 +27,6 @@
               <option>01</option>
               <option>02</option>
               <option>03</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6 mb-2">
-          <div class="form-group">
-            <label for="garages">Garages</label>
-            <select class="form-control form-control-lg form-control-a" id="garages">
-              <option>Any</option>
-              <option>01</option>
-              <option>02</option>
-              <option>03</option>
-              <option>04</option>
             </select>
           </div>
         </div>
@@ -72,24 +42,55 @@
           </div>
         </div>
         <div class="col-md-6 mb-2">
-          <div class="form-group">
-            <label for="price">Min Price</label>
-            <select class="form-control form-control-lg form-control-a" id="price">
-              <option>Unlimite</option>
-              <option>$50,000</option>
-              <option>$100,000</option>
-              <option>$150,000</option>
-              <option>$200,000</option>
-            </select>
-          </div>
-        </div>
+                <div class="form-group">
+                  <label for="city">County</label>
+                  <select class="form-control form-control-lg form-control-a" id="county">
+                          
+                                      <option value="All">All</option>
+                                      <option value="Antrim">Antrim</option>
+                                      <option value="Armagh">Armagh</option>
+                                      <option value="Carlow">Carlow</option>
+                                      <option value="Cavan">Cavan</option>
+                                      <option value="Clare">Clare</option>
+                                      <option value="Cork">Cork</option>
+                                      <option value="Derry">Derry</option>
+                                      <option value="Donegal">Donegal</option>
+                                      <option value="Down">Down</option>
+                                      <option value="Dublin">Dublin</option>
+                                      <option value="Fermanagh">Fermanagh</option>
+                                      <option value="Galway">Galway</option>
+                                      <option value="Kerry">Kerry</option>
+                                      <option value="Kildare">Kildare</option>
+                                      <option value="Kilkenny">Kilkenny</option>
+                                      <option value="Laois">Laois</option>
+                                      <option value="Leitrim">Leitrim</option>
+                                      <option value="Limerick">Limerick</option>
+                                      <option value="Longford">Longford</option>
+                                      <option value="Louth">Louth</option>
+                                      <option value="Mayo">Mayo</option>
+                                      <option value="Meath">Meath</option>
+                                      <option value="Monaghan">Monaghan</option>
+                                      <option value="Offaly">Offaly</option>
+                                      <option value="Roscommon">Roscommon</option>
+                                      <option value="Sligo">Sligo</option>
+                                      <option value="Tipperary">Tipperary</option>
+                                      <option value="Tyrone">Tyrone</option>
+                                      <option value="Waterford">Waterford</option>
+                                      <option value="Westmeath">Westmeath</option>
+                                      <option value="Wexford">Wexford</option>
+                                      <option value="Wicklow">Wicklow</option>
+                                      </select>
+                                
+                </div>
+              </div>
         <div class="col-md-12">
-          <button type="submit" class="btn btn-b">Search Property</button>
+          <button type="button" onclick="search();" class="btn btn-b">Search Property</button>
         </div>
       </div>
     </form>
   </div>
 </div>
+<!--/ Form Search End /-->
 
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top" style="float:right">
@@ -100,6 +101,7 @@
       <span></span>
       <span></span>
     </button>
+    <img src="Picture1.png" style="height: 60px; width: 60px">
     <a class="navbar-brand text-brand" href="index.html">Block<span class="color-b">Rentals</span></a>
    
     
@@ -127,7 +129,7 @@
             aria-haspopup="true" aria-expanded="false" style="color:black">
             
           </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="sign-in-dropdown">
                 <a class="dropdown-item" id="dropdown-1"style="color:black"></a>
                 
                 <a class="dropdown-item" id="dropdown-2"style="color:black"></a>
@@ -138,10 +140,10 @@
         
       </ul>
     </div>
-    <!--<button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
-      data-target="#navbarTogglerDemo01" aria-expanded="false">
-      <span class="fa fa-search" aria-hidden="true"></span>
-    </button>-->
+    <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
   </div>
 </nav>
 <!--/ Nav End /-->

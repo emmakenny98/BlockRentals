@@ -62,6 +62,11 @@ App = {
 
   	bindEvents: function() {
       $(document).on('click', '.btn-reg', App.handleCreateListing);
+      $(document).on('click', '.navbar-toggle-box-collapse', openSearch);
+      $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
+
+     
+    
   	},
 
    
@@ -149,3 +154,12 @@ $(function() {
     
 	});
 });
+
+function openSearch() {
+    $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
+}
+
+function closeSearch() {
+    $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
+        $('.menu-list ul').slideUp(700);
+}

@@ -51,9 +51,13 @@ App = {
 		});
         
         
-		return;
+		return App.bindEvents();
   	},
 
+      bindEvents: function(){
+        $(document).on('click', '.navbar-toggle-box-collapse', openSearch);
+        $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
+      },
   
 
     
@@ -70,26 +74,25 @@ App = {
         for(var id =0; id < indexes.length; id++){
                      ret[id] = createListingInstance.getListing.call(indexes[id]).then(function(result) {
 
-          var listing= {
+            var listing= {
                            
-                            name: result[0],
-                                address: result[1],
-                                price: result[2],
-                                description: result[3],
-                                numBeds: result[4],
-                                numBaths: result[5],
-                                index: result[6],
-                                landName: result[7],
-                                landEmail: result[8],
-                                landPhone: result[9],
-                                landBio: result[10]
-                          };
+                                  name: result[0],
+                                    address: result[1],
+                                    county: result[2],
+                                    price: result[3],
+                                    description: result[4],
+                                    numBeds: result[5],
+                                    numBaths: result[6],
+                                    index: result[7],
+                                    landId: result[8],
+                                    
+                              };
 
 
 
           var example = document.createElement('div');
                         example.className = "col-md-4";
-                        example.innerHTML = ` <div class="card-box-a card-shadow">
+                        example.innerHTML = ` <div class="card-box-a card-shadow" onclick="window.location='property-single.html?q=`+listing.index+`'">
                           <div class="img-box-a" >
                           <img src="" alt="" id="pic-grid`+listing.index+`" class="img-a img-fluid" style="width:800px;height:400px;"/>
                           </div>
@@ -120,7 +123,8 @@ App = {
                                     <span>`+listing.numBaths+`</span>
                                   </li>
                                   <li>
-                                    
+                                  <h4 class="card-info-title">County</h4>
+                                  <span>`+listing.county+`</span>
                                   </li>
                                 </ul>
                               </div>
@@ -178,20 +182,19 @@ printCarousel: function(id) {
              
                      ret[id] = createListingInstance.getListing.call(id).then(function(result) {
 
-          var listing= {
+            var listing= {
                            
-                            name: result[0],
-                                address: result[1],
-                                price: result[2],
-                                description: result[3],
-                                numBeds: result[4],
-                                numBaths: result[5],
-                                index: result[6],
-                                landName: result[7],
-                                landEmail: result[8],
-                                landPhone: result[9],
-                                landBio: result[10]
-                          };
+                                  name: result[0],
+                                    address: result[1],
+                                    county: result[2],
+                                    price: result[3],
+                                    description: result[4],
+                                    numBeds: result[5],
+                                    numBaths: result[6],
+                                    index: result[7],
+                                    landId: result[8],
+                                    
+                              };
                   var car = ` <li data-target="#myCarousel" id="item`+id+`" data-slide-to="`+id+`"></li>`;
                     document.getElementById("carousel-indicators").innerHTML += car;
                
@@ -305,4 +308,13 @@ function callCarousel() {
    }
 
    
+}
+
+function openSearch() {
+    $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
+}
+
+function closeSearch() {
+    $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
+        $('.menu-list ul').slideUp(700);
 }

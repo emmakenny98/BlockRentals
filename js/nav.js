@@ -35,8 +35,12 @@ firebase.auth().onAuthStateChanged(function(user) {
                   document.getElementById("user-name").innerHTML = nameFull;
                   document.getElementById("dropdown-1").href = "listings.html";
                   document.getElementById("dropdown-2").href = "profile.html";
+
                   document.getElementById("dropdown-1").innerHTML = "My Listings";
                   document.getElementById("dropdown-2").innerHTML = "My Profile";
+
+                  document.getElementById("sign-in-dropdown").innerHTML += `<a class="dropdown-item" href="myContracts.html" id="dropdown-3"style="color:black">My Contracts</a>
+                  <a class="dropdown-item" href="" onclick="signOut()" id="dropdown-3"style="color:black">Sign Out</a>`;
               })
      
             

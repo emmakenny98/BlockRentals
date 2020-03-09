@@ -40,9 +40,21 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+  <script>  /*--/ Navbar Collapse /--*/
+      $('.navbar-toggle-box-collapse').on('click', function () {
+          alert("click");
+          $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
+      });
+      $('.close-box-collapse, .click-closed').on('click', function () {
+          alert("click");
+          $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
+          $('.menu-list ul').slideUp(700);
+      });
+      
+      </script>
 </head>
 
-<body>
+<body class="box-collapse-closed">
     <div w3-include-html="header.html">
       </div>
 

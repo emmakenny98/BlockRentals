@@ -27,6 +27,7 @@ contract CreateListing {
         string end;
         uint rent;
         string todayDate;
+        bool signed;
     }
 
 
@@ -79,10 +80,10 @@ contract CreateListing {
 		return listingIndexes;
 	}
 	
-    function getAgreement(uint index) public returns (string memory, string memory, string memory, string memory, string memory, string memory, uint, string memory) {
+    function getAgreement(uint index) public returns (uint, string memory, string memory, string memory, string memory, string memory, string memory, uint, string memory, bool) {
         Agreement memory agree = agreements[index];
 
-        return (agree.landlord, agree.tenant, agree.title, agree.addr, agree.start, agree.end, agree.rent, agree.todayDate);
+        return (agree.id, agree.landlord, agree.tenant, agree.title, agree.addr, agree.start, agree.end, agree.rent, agree.todayDate, agree.signed);
     }
 
 	function getListing(uint index) public returns (string memory, string memory, string memory, uint, string memory, uint, uint, uint, string memory) {
@@ -91,6 +92,8 @@ contract CreateListing {
 		return (house.name, house.addr, house.county, house.price,house.description, house.numBed, house.numBath, house.id, house.landlordId);
 	}
 
-
+    function signAgreement(uint index) public {
+        agreements[index].signed = true;
+    }
 	
 }	
