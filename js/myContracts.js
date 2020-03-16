@@ -69,15 +69,16 @@ App = {
 
         event.preventDefault();
           
-        var tenantName = getUrlVars()["tenantName"];
-        var tenantEmail = getUrlVars()["tenantEmail"];
-        var landName= getUrlVars()["landName"];
-        var landEmail= getUrlVars()["landEmail"];
-        var propName= getUrlVars()["propName"]; 
-        var addr= getUrlVars()["address"];
-        var start= getUrlVars()["start"];
-        var end= getUrlVars()["end"];
-        var price= getUrlVars()["price"];
+        
+  var tenantName = document.getElementById("tenantName-form").value;
+  var tenantEmail = document.getElementById("tenantEmail-form").value;
+  var landlordName = document.getElementById("landlordName-form").value;
+  var landlordEmail = document.getElementById("landlordEmail-form").value;
+  var propName = document.getElementById("propName-form").value;
+  var address = document.getElementById("address-form").value;
+  var start = document.getElementById("start-form").value;
+  var end = document.getElementById("end-form").value;
+  var price = document.getElementById("price-form").value;
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -331,18 +332,8 @@ function contractChange() {
 
 function sendContract() {
 
-  
-  var tenantName = document.getElementById("tenantName-form").value;
-  var tenantEmail = document.getElementById("tenantEmail-form").value;
-  var landlordName = document.getElementById("landlordName-form").value;
-  var landlordEmail = document.getElementById("landlordEmail-form").value;
-  var propName = document.getElementById("propName-form").value;
-  var address = document.getElementById("address-form").value;
-  var start = document.getElementById("start-form").value;
-  var end = document.getElementById("end-form").value;
-  var price = document.getElementById("price-form").value;
+ App.verifyTenancy();
 
-  window.location.href='contract.html?tenantName='+tenantName+'&tenantEmail='+tenantEmail+'&landName='+landlordName+'&landEmail='+landlordEmail+'&propName='+propName+'&address='+address+'&start='+start+'&end='+end+'&price='+price+'';
   
   
 }

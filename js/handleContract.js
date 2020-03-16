@@ -63,50 +63,48 @@ App = {
       $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
      
   	},
+      verifyTenancy: function() {
 
-  
-    verifyTenancy: function(event) {
-
-      event.preventDefault();
-		
-      var tenantName = getUrlVars()["tenantName"];
-      var tenantEmail = getUrlVars()["tenantEmail"];
-      var landName= getUrlVars()["landName"];
-      var landEmail= getUrlVars()["landEmail"];
-      var propName= getUrlVars()["propName"]; 
-      var addr= getUrlVars()["address"];
-      var start= getUrlVars()["start"];
-      var end= getUrlVars()["end"];
-      var price= getUrlVars()["price"];
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      var yyyy = today.getFullYear();
-      
-      today = dd + '/' + mm + '/' + yyyy;
-      
-  
-          var createListingInstance;
-          
-          web3.eth.getAccounts(function(error, accounts) {
-            if (error) {
-                 console.log(error);
-            }
-  
-            var account = accounts[0];
-  
-            App.contracts.CreateListing.deployed().then(function(instance) {
-                 createListingInstance = instance;
-                    return  createListingInstance.addAgreement(landName, tenantName, propName, addr, start, end, price, today, {from: account});
-            }).then(function(result) {
-             
-              document.getElementById("addProperty-form").reset();
-        })
-      });
+     
+        
+  var tenantName = document.getElementById("tenantName-form").value;
+  var tenantEmail = document.getElementById("tenantEmail-form").value;
+  var landlordName = document.getElementById("landlordName-form").value;
+  var landlordEmail = document.getElementById("landlordEmail-form").value;
+  var propName = document.getElementById("propName-form").value;
+  var address = document.getElementById("address-form").value;
+  var start = document.getElementById("start-form").value;
+  var end = document.getElementById("end-form").value;
+  var price = document.getElementById("price-form").value;
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        
+        today = dd + '/' + mm + '/' + yyyy;
+        
     
-    },
-  
-
+            var createListingInstance;
+            
+            web3.eth.getAccounts(function(error, accounts) {
+              if (error) {
+                   console.log(error);
+              }
+    
+              var account = accounts[0];
+    
+              App.contracts.CreateListing.deployed().then(function(instance) {
+                   createListingInstance = instance;
+                      return  createListingInstance.addAgreement(landlordName, tenantName, propName, address, start, end, price, today, {from: account});
+              }).then(function(result) {
+               
+                document.getElementById("addProperty-form").reset();
+          })
+        });
+      
+      },
+    
+ 
  
     completeContract: function() {
         var index = getUrlVars()["q"];
@@ -266,9 +264,7 @@ function contractChange() {
 function sendContract() {
 
   
-  var i = parseInt(getUrlVars()["q"]);
-
-  window.location.href='contract.html?q='+i+'';
+  App.verifyTenancy();
   
   
 }

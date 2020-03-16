@@ -161,7 +161,7 @@ App = {
                                 signed: result[9] 
                           };
 
-                            alert(agreement.signed);
+                           
                             var example = document.createElement('div');
                             example.className = "col-md-12 col-lg-8";
                             example.innerHTML = ` 
@@ -180,7 +180,7 @@ App = {
                            
                             </div>
                             </div>
-                            <div class="col-md-6 col-lg-4" id="verify">
+                            <div class="col-md-6 col-lg-4" id="verify`+agreement.id+`">
                             <p class="color-text-a" >
                              `+agreement.signed+`
                             </p>
@@ -190,14 +190,14 @@ App = {
       `;
                               
                           document.getElementById("listings").appendChild(example);
-                      
+                            alert(agreement.id);
                           if(agreement.signed == false){
                             
-                            document.getElementById("verify").innerHTML = ` <button type="button" class="color-text-a" id="verify-btn" onclick="App.signContract(`+agreement.id+`)">Sign Contract</button>
+                            document.getElementById("verify"+agreement.id+"").innerHTML = ` <button type="button" class="color-text-a" id="verify-btn" onclick="App.signContract(`+agreement.id+`)">Sign Contract</button>
                             `;
                           }
                           if(agreement.signed == true) {
-                            document.getElementById("verify").innerHTML = ` <p class="color-text-a">
+                            document.getElementById("verify"+agreement.id+"").innerHTML = ` <p class="color-text-a">
                             `+agreement.signed+`
                            </p>`;
                           }
