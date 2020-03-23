@@ -93,10 +93,6 @@ w3IncludeHTML();
           <td style="width:30%"></td>
           <td><br><input type="text" id="landlordEmail-form" class="landlordEmail-form"></td>
         </tr>
-          <td><br>Property Name</td>
-          <td style="width:30%"></td>
-          <td><br><input type="text" id="propName-form" class="propName-form"></td>
-        </tr>
           <td><br>Property Address</td>
             <td style="width:30%"></td>
             <td><br><input type="text" id="address-form" class="address-form"></td>
@@ -117,18 +113,23 @@ w3IncludeHTML();
         <td><br><input type="number" id="price-form" class="price-form"></td>
 
     </tr>
-          
+    <td><br>Deposit</td>
+    <td style="width:30%"></td>
+    <td><br><input type="number" id="deposit-form" class="deposit-form"></td>
+
+</tr>
           
           <tr>
             <td></td>
             <td style="width:30%"></td>
             <td style="width:30%"></td>
-            <td><br><input type="button" onclick="sendContract();" value="Send to Tenant" class= "btn-reg" id="send-btn" style="width:100%"></td>
+            <td><br><input type="button" onclick="sendContract();" value="Send to Tenant" class= "btn-reg" id="send-btn" style="width:100%;background-color:#2eca6a; color:white; border:hidden"></td>
     <td class="space"></td>
-    
+    <br><br>
           </tr>
           </table></center>
       </form>
+        <br><br>
 
 
   
@@ -209,48 +210,50 @@ w3IncludeHTML();
         </div>
       </footer>
       <!--/ Footer End /-->
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/popper/popper.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+ <!-- JavaScript Libraries -->
+ <script src="lib/jquery/jquery.min.js"></script>
+ <script src="lib/jquery/jquery-migrate.min.js"></script>
+ <script src="lib/popper/popper.min.js"></script>
+ <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+ <script src="lib/easing/easing.min.js"></script>
+ <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+ <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/7.7.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.7.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
  
- <!-- The core Firebase JS SDK is always required and must be listed first -->
- <script src="/__/firebase/7.7.0/firebase-app.js"></script>
 
- <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
- <script src="/__/firebase/7.7.0/firebase-analytics.js"></script>
- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-  
-
-  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"> 
-  </script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"> 
-  </script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"> 
-  </script>
-  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-storage.js"> 
-  </script>
+ <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"> 
+ </script>
+ <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"> 
+ </script>
+ <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"> 
+ </script>
+ <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-storage.js"> 
+ </script>
 <script>
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-  apiKey: "AIzaSyA9GjDQqZsQ1Dt3emE8fH1hxnqezo5i2oY",
-  authDomain: "fyp-emma.firebaseapp.com",
-  databaseURL: "https://fyp-emma.firebaseio.com",
-  projectId: "fyp-emma",
-  storageBucket: "fyp-emma.appspot.com",
-  messagingSenderId: "872535331218",
-  appId: "1:872535331218:web:33a5459ae074ed2858f14b",
-  measurementId: "G-ZCGVCX75EZ"
+ // Your web app's Firebase configuration
+ const firebaseConfig = {
+ apiKey: "AIzaSyA9GjDQqZsQ1Dt3emE8fH1hxnqezo5i2oY",
+ authDomain: "fyp-emma.firebaseapp.com",
+ databaseURL: "https://fyp-emma.firebaseio.com",
+ projectId: "fyp-emma",
+ storageBucket: "fyp-emma.appspot.com",
+ messagingSenderId: "872535331218",
+ appId: "1:872535331218:web:33a5459ae074ed2858f14b",
+ measurementId: "G-ZCGVCX75EZ"
 };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+ // Initialize Firebase
+ firebase.initializeApp(firebaseConfig);
 
 </script>
+
+
 
 
   <!-- Template Main Javascript File -->

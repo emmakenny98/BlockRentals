@@ -1,3 +1,20 @@
+function signOut(){
+  firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      Swal.fire(
+          'Signed Out!',
+          '',
+          'success',
+         
+        ).then((value) => {
+       
+     
+              window.location.replace("./index.html");
+        })
+         
+  })
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
   
     //   User is signed in.
@@ -15,8 +32,10 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementById("dropdown-1").innerHTML = "SignUp";
         document.getElementById("dropdown-2").innerHTML = "Login";
         document.getElementById("profile-pic").src = "user.png";
+        
       }
      
+      if(user){
       let firebaseRefKey = firebase.database().ref().child(uid);
       firebaseRefKey.on('value', (dataSnapShot)=>{
            firstName = dataSnapShot.val().userFullName;
@@ -25,7 +44,21 @@ firebase.auth().onAuthStateChanged(function(user) {
            email = dataSnapShot.val().userEmail;
            phone = dataSnapShot.val().userPhone;
            bio = dataSnapShot.val().userBio;
-           
+           if(fileName == null){
+              
+                  //document.getElementById("userPfAvatar").src = url;
+                  document.getElementById("profile-pic").src ="user.png";
+                  var nameFull = dataSnapShot.val().userFullName + " " +dataSnapShot.val().userSurname;
+                  document.getElementById("user-name").innerHTML = nameFull;
+                  document.getElementById("dropdown-1").href = "listings.html";
+                  document.getElementById("dropdown-2").href = "profile.html";
+
+                  document.getElementById("dropdown-1").innerHTML = "My Listings";
+                  document.getElementById("dropdown-2").innerHTML = "My Profile";
+
+                  document.getElementById("sign-in-dropdown").innerHTML += `<a class="dropdown-item" href="myContracts.html" id="dropdown-3"style="color:black">My Contracts</a>
+                  <a class="dropdown-item" href="" onclick="signOut()" id="dropdown-3"style="color:black">Sign Out</a>`;
+           }
            var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
               storageRef.getDownloadURL().then(function(url) {
                   
@@ -43,6 +76,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                   <a class="dropdown-item" href="" onclick="signOut()" id="dropdown-3"style="color:black">Sign Out</a>`;
               })
      
-            
+     
   });
+}
   });

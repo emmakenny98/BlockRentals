@@ -3,7 +3,22 @@ var addresses = [];
 var currentUser, uid, firstName, surName, email, phone, bio;
 var carouselArray = [];
 
+firebase.auth().onAuthStateChanged(function(user) {
+  
+  //   User is signed in.
+      
+      user = firebase.auth().currentUser;
+      if(user != null){
+        uid = user.uid;
+        email = user.email;
+        App.handleContracts();
+    }
 
+    if(user ==null){
+  
+     window.location.href = "login.html";
+    }
+});
 
 
 
@@ -46,7 +61,7 @@ App = {
              
              
              //completeContract();
-             App.handleContracts();
+            
              
               
 
@@ -105,9 +120,25 @@ App = {
         });
       
       },
-    
- 
-      signContract: function(index){
+
+      pay: function(amount) {
+        const cost = web3.toWei(amount, 'ether');
+        web3.eth.getAccounts(function(error, result) {
+          web3.eth.sendTransaction(
+              {from: "0x694830D3Fdfaa00Bc911ea28845715666fb8Ee5f",
+              to: "0xEfb720B565A1e37bC0E15713e19DE549D17E82FE",
+              value:  cost
+                  }, function(err, transactionHash) {
+            if (!err)
+              console.log(transactionHash); 
+          });
+      }).then(function(result){
+      window.location.reload();
+      });
+        
+      },
+     
+      signContract: function(index, deposit){
            var createListingInstance;
                 var ret = []; 
         
@@ -129,7 +160,7 @@ App = {
                     
                      ret[index] = createListingInstance.signAgreement(index,  {from: account}).then(function(result) {
 
-            window.location.reload();
+                window.location.reload();
         })
     })
 })
@@ -148,61 +179,112 @@ App = {
                 for(var i =0; i < indexes.length; i++){
                     
                      ret[i] = createListingInstance.getAgreement.call(indexes[i]).then(function(result) {
-                              var agreement= {
-                                id: result[0],
-                                landlord: result[1],
-                                tenant: result[2],
-                                title: result[3],
-                                addr: result[4],
-                                start: result[5],
-                                end: result[6],
-                                rent: result[7],
-                                today: result[8],
-                                signed: result[9] 
-                          };
-
-                           
+                                                
+           var agreement= {
+            id: result[0],
+            tenant: result[1],
+            tenantEmail: result[2],
+            landlord: result[3],
+            landEmail: result[4],
+            addr: result[5],
+            start: result[6],
+            end: result[7],
+            rent: result[8],
+            deposit: result[9],
+            today: result[10],
+            signed: result[11]
+                };
+    
+                           if(email == agreement.landEmail){
                             var example = document.createElement('div');
                             example.className = "col-md-12 col-lg-8";
                             example.innerHTML = ` 
                             <div class="row">
                             <div class="col-md-6 col-lg-4">
                             
-                              <img src="contract.png" alt="" class="img-fluid">
+                              <img id="pic-contract`+agreement.id+`" src="cont.png" alt="" class="img-fluid">
                             </div>
                             <div class="col-md-6 col-lg-4">
                             <div class="property-agent">
-                            <h4 class="title-agent">`+agreement.title+`</h4>
-                            <p class="color-text-a">
-                             `+agreement.addr+`
-                            </p>
+                            <h4 class="title-agent">`+agreement.addr+`</h4>
+                            <p style="color:black">For tenant `+agreement.tenant+`</p>
+                            <p style="color:black">`+agreement.today+`</p>
                             <a href="contract.html?q=`+agreement.id+`" class="color-text-a">View Contract</a>
                            
                             </div>
                             </div>
                             <div class="col-md-6 col-lg-4" id="verify`+agreement.id+`">
-                            <p class="color-text-a" >
-                             `+agreement.signed+`
-                            </p>
+                            
                             </div>
                           
                             </div>
+                            <br><br><br>
       `;
                               
                           document.getElementById("listings").appendChild(example);
-                            alert(agreement.id);
+                          
                           if(agreement.signed == false){
-                            
-                            document.getElementById("verify"+agreement.id+"").innerHTML = ` <button type="button" class="color-text-a" id="verify-btn" onclick="App.signContract(`+agreement.id+`)">Sign Contract</button>
+                           
+                            document.getElementById("verify"+agreement.id+"").innerHTML = ` <p>`+agreement.tenant+` has not yet signed the rental agreemnt. <br>
+                            <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick=" window.location.href = 'mailto:`+agreement.tenantEmail+`?Subject=`+agreement.addr+` Rental Agreement Reminder&body=Dear `+agreement.tenant+`,%0A%0AI noticed that you have yet to sign the rental agreement for `+agreement.addr+`.%0APlease do so as soon as possible through the BlockRentals webapp. You can find the contract under the My Contracts tab.%0AShould you have any further questions, please do not hesitate to contact me at `+agreement.landEmail+`%0A%0AKind regards,%0A`+agreement.landlord+`'"  class="btn btn-a">Send Reminder Email to `+agreement.tenant+`</button>
                             `;
                           }
                           if(agreement.signed == true) {
+                           
                             document.getElementById("verify"+agreement.id+"").innerHTML = ` <p class="color-text-a">
-                            `+agreement.signed+`
+                            Contract Signed by: <br>`+agreement.tenant+`
                            </p>`;
                           }
                          
+                           } 
+
+                           if(email == agreement.tenantEmail){
+                            var example = document.createElement('div');
+                            example.className = "col-md-12 col-lg-8";
+                            example.innerHTML = ` 
+                            <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                            
+                              <img src="cont.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                            <div class="property-agent">
+                            <h4 class="title-agent">`+agreement.addr+`</h4>
+                            <p style="color:black">Created by: `+agreement.landlord+`</p>
+                            <p style="color:black">`+agreement.today+`</p>
+                            <a href="contract.html?q=`+agreement.id+`" class="color-text-a">View Contract</a>
+                           
+                            </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4" id="verify`+agreement.id+`">
+                            
+                            </div>
+                          
+                            </div><br><br><br>
+      `;
+                              
+                          document.getElementById("listings").appendChild(example);
+                          
+                          var etherumDeposit = agreement.deposit * 0.0082;
+                          var rent = agreement.rent *0.0082;
+                          if(agreement.signed == false){
+                           
+                            document.getElementById("verify"+agreement.id+"").innerHTML = ` 
+                            <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick="App.signContract(`+agreement.id+`,`+etherumDeposit+`)">Sign the Rental Agreement</button>
+                            <br><br>
+                            <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick="App.pay(`+etherumDeposit+`)">Pay Deposit of `+etherumDeposit+`ETH(€`+agreement.deposit+`)</button>
+                        `;
+                          }
+                          if(agreement.signed == true) {
+                            
+                            document.getElementById("verify"+agreement.id+"").innerHTML = ` <p class="color-text-a">
+                            Contract Signed!
+                           </p>
+                           <br><br>
+                           <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick="App.pay(`+rent+`)">Pay Monthly Rent of `+rent+`ETH(€`+agreement.rent+`)</button>`;
+                          }
                          
+                           } 
     
                                });     
                  }

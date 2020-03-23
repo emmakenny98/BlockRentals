@@ -1268,7 +1268,7 @@ a:hover {
   border-color: #313131;
 }
 
-.county-select {
+.property-grid .grid-option .county-select {
   border-radius: 0;
   width: 200px;
   border-color: #313131;

@@ -117,24 +117,25 @@ App = {
                                     address: result[1],
                                     county: result[2],
                                     price: result[3],
-                                    description: result[4],
-                                    numBeds: result[5],
-                                    numBaths: result[6],
-                                    index: result[7],
-                                    landId: result[8],
+                                    deposit: result[4],
+                                    description: result[5],
+                                    numBeds: result[6],
+                                    numBaths: result[7],
+                                    index: result[8],
+                                    landId: result[9],
                                     
                               };
                  
               let firebaseRefKey = firebase.database().ref().child(listing.landId);
               firebaseRefKey.on('value', (dataSnapShot)=>{
-                   firstName = dataSnapShot.val().userFullName;
-                    surName = dataSnapShot.val().userSurname;
-                     fileName = dataSnapShot.val().image;
+                   landFirstName = dataSnapShot.val().userFullName;
+                    landSurName = dataSnapShot.val().userSurname;
+                     landFileName = dataSnapShot.val().image;
                    landEmail = dataSnapShot.val().userEmail;
-                   phone = dataSnapShot.val().userPhone;
-                   bio = dataSnapShot.val().userBio;
+                   landPhone = dataSnapShot.val().userPhone;
+                   landBio = dataSnapShot.val().userBio;
           
-                   var landlordName = firstName +" "+ surName;
+                   var landlordName = landFirstName +" "+ landSurName;
 
         if(email == landEmail){
                         var example = document.createElement('div');

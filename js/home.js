@@ -74,19 +74,20 @@ App = {
         for(var id =0; id < indexes.length; id++){
                      ret[id] = createListingInstance.getListing.call(indexes[id]).then(function(result) {
 
-            var listing= {
+          var listing= {
                            
-                                  name: result[0],
-                                    address: result[1],
-                                    county: result[2],
-                                    price: result[3],
-                                    description: result[4],
-                                    numBeds: result[5],
-                                    numBaths: result[6],
-                                    index: result[7],
-                                    landId: result[8],
-                                    
-                              };
+                              name: result[0],
+                                address: result[1],
+                                county: result[2],
+                                price: result[3],
+                                deposit: result[4],
+                                description: result[5],
+                                numBeds: result[6],
+                                numBaths: result[7],
+                                index: result[8],
+                                landId: result[9],
+                                
+                          };
 
 
 
@@ -182,19 +183,20 @@ printCarousel: function(id) {
              
                      ret[id] = createListingInstance.getListing.call(id).then(function(result) {
 
-            var listing= {
+          var listing= {
                            
-                                  name: result[0],
-                                    address: result[1],
-                                    county: result[2],
-                                    price: result[3],
-                                    description: result[4],
-                                    numBeds: result[5],
-                                    numBaths: result[6],
-                                    index: result[7],
-                                    landId: result[8],
-                                    
-                              };
+                              name: result[0],
+                                address: result[1],
+                                county: result[2],
+                                price: result[3],
+                                deposit: result[4],
+                                description: result[5],
+                                numBeds: result[6],
+                                numBaths: result[7],
+                                index: result[8],
+                                landId: result[9],
+                                
+                          };
                   var car = ` <li data-target="#myCarousel" id="item`+id+`" data-slide-to="`+id+`"></li>`;
                     document.getElementById("carousel-indicators").innerHTML += car;
                

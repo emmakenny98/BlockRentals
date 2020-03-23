@@ -79,8 +79,9 @@ App = {
         var address = document.getElementById("address-form").value;
         var county = document.getElementById("county-form").value;
         var price = document.getElementById("price-form").value;
-        
+        var deposit = document.getElementById("deposit-form").value;
         var description = document.getElementById("description-form").value;
+
         var beds = document.getElementById("beds-form").value;
         var baths = document.getElementById("baths-form").value;
         var pics = [];
@@ -92,19 +93,15 @@ App = {
             pics[i] = file.name;
         }
          var firebaseRef = firebase.database().ref(name);
-      
-       
+  
         for(var j = 0; j < pics.length; j++){
-        
-                var img = {
-                    image: pics[j]
-                    
-                    
-                }
+            var img = {
+                image: pics[j]
+          }
                 firebaseRef.child(j).set(img);
            
         }
-       
+
     		var createListingInstance;
         
     		web3.eth.getAccounts(function(error, accounts) {
@@ -112,7 +109,7 @@ App = {
        				console.log(error);
     			}
 
-         var fullName = firstName+" "+surName;
+        
         
     			var account = accounts[0];
                 user = firebase.auth().currentUser;
@@ -122,7 +119,7 @@ App = {
                     console.log(url);
     			App.contracts.CreateListing.deployed().then(function(instance) {
        				createListingInstance = instance;
-                  return  createListingInstance.addListing(name, address, county, price, description, beds, baths, user.uid,  {from: account});
+                  return  createListingInstance.addListing(name, address, county, price, deposit, description, beds, baths, user.uid,  {from: account});
     			}).then(function(result) {
             Swal.fire(
               'Your listing has been successfully sent to the blockchain!',

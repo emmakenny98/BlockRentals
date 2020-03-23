@@ -127,7 +127,17 @@ function signUp(){
         setTimeout(function(){
             window.location.replace("./profile.html");
         }, 1000)
-    });
+    })
+}).catch(function(error){
+       
+        
+        Swal.fire(
+            'Error!',
+            error.message,
+            'error',
+           
+          )
+    
                
             });
         }
@@ -218,7 +228,18 @@ firebase.auth().onAuthStateChanged((user)=>{
             document.getElementById("userPfPhone").innerHTML = dataSnapShot.val().userPhone;
             document.getElementById("userPfBio").innerHTML = dataSnapShot.val().userBio;
             var fileName = dataSnapShot.val().image;
-
+          
+            if(fileName == null){
+                document.getElementById("userPfAvatar").src = "user.png";
+                document.getElementById("profile-pic").src = "user.png";
+              
+              
+                document.getElementById("user-name").innerHTML = nameFull;
+                document.getElementById("dropdown-1").href = "listings.html";
+                document.getElementById("dropdown-2").hrf = "profile.html";
+                document.getElementById("dropdown-1").innerHTML = "My Listings";
+                document.getElementById("dropdown-2").innerHTML = "My Profile";
+            }
             var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
             storageRef.getDownloadURL().then(function(url) {
                 
@@ -315,8 +336,16 @@ function saveProfile(){
 function signOut(){
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
+        Swal.fire(
+            'Signed Out!',
+            '',
+            'success',
+           
+          ).then((value) => {
+         
        
                 window.location.replace("./index.html");
+          })
            
     })
 }

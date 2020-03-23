@@ -3,6 +3,20 @@ var addresses = [];
 var currentUser, uid, firstName, surName, email, phone, bio, profPic;
 var carouselArray = [];
 
+firebase.auth().onAuthStateChanged(function(user) {
+  
+  //   User is signed in.
+      
+     user = firebase.auth().currentUser;
+      if(user != null){
+        uid = user.uid;
+    }
+
+    if(user ==null){
+  
+     window.location.href = "login.html";
+    }
+});
 
 
 App = {
@@ -60,6 +74,7 @@ App = {
       $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
     },
 
+   
    printSingle: function(i) { 
             var createListingInstance;
              var ret = [];   
@@ -75,26 +90,28 @@ App = {
                                 address: result[1],
                                 county: result[2],
                                 price: result[3],
-                                description: result[4],
-                                numBeds: result[5],
-                                numBaths: result[6],
-                                index: result[7],
-                                landId: result[8],
+                                deposit: result[4],
+                                description: result[5],
+                                numBeds: result[6],
+                                numBaths: result[7],
+                                index: result[8],
+                                landId: result[9],
                                 
                           };
           console.log(listing);
-                        alert(listing.landId);
+                      
           let firebaseRefKey = firebase.database().ref().child(listing.landId);
           firebaseRefKey.on('value', (dataSnapShot)=>{
-               firstName = dataSnapShot.val().userFullName;
-                surName = dataSnapShot.val().userSurname;
-                 fileName = dataSnapShot.val().image;
-               email = dataSnapShot.val().userEmail;
-               phone = dataSnapShot.val().userPhone;
-               bio = dataSnapShot.val().userBio;
+               landFirstName = dataSnapShot.val().userFullName;
+                landSurName = dataSnapShot.val().userSurname;
+                 landFileName = dataSnapShot.val().image;
+               landEmail = dataSnapShot.val().userEmail;
+               
+               landPhone = dataSnapShot.val().userPhone;
+              landBio = dataSnapShot.val().userBio;
       
-               var landlordName = firstName +" "+ surName;
-               var storageRef = firebase.storage().ref(listing.landId + '/'+fileName);
+               var landlordName = landFirstName +" "+ landSurName;
+               var storageRef = firebase.storage().ref(listing.landId + '/'+landFileName);
                storageRef.getDownloadURL().then(function(url) {
                    
                             var elem = document.createElement('div');
@@ -129,7 +146,7 @@ App = {
                           page.className = "row justify-content-between";
                           
 
-                          var land_email = listing.landEmail;
+                          
                           page.innerHTML = `
                               <div class="col-md-5 col-lg-4">
                                 <div class="property-price d-flex justify-content-center foo">
@@ -161,13 +178,14 @@ App = {
                                         <span>`+listing.address+`</span>
                                       </li>
                                       <li class="d-flex justify-content-between">
-                                        <strong>Property Type:</strong>
-                                        <span>House</span>
+                                        <strong>County</strong>
+                                        <span>`+listing.county+`</span>
                                       </li>
                                       <li class="d-flex justify-content-between">
-                                        <strong>Status:</strong>
-                                        <span>Sale</span>
+                                        <strong>Deposit:</strong>
+                                        <span>`+listing.deposit+`</span>
                                       </li>
+                                      
                                       
                                       <li class="d-flex justify-content-between">
                                         <strong>Beds:</strong>
@@ -230,14 +248,14 @@ App = {
                               <ul class="list-unstyled">
                               <li class="d-flex justify-content-between">
                                 <strong>Phone:</strong>
-                                <span class="color-text-a">`+phone+`</span>
+                                <span class="color-text-a">`+landPhone+`</span>
                               </li>
                               <li class="d-flex justify-content-between">
                                 
                               </li>
                               <li class="d-flex justify-content-between">
                                 <strong>Email:</strong>
-                                <span class="color-text-a">`+email+`</span>
+                                <span class="color-text-a">`+landEmail+`</span>
                               </li>
                               <br><br>
                               <p class="color-text-a">
@@ -247,19 +265,15 @@ App = {
                                   <li class="d-flex justify-content-between">
                                   <div class="col-md-6 col-lg-4">
                                   <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick=" window.location.href = 'mailto:`+listing.landEmail+`?Subject=`+listing.name+`'"  class="btn btn-a">Send Message</button>
-                                  
+                                 
                                 </div>
                                   </li>
                               
                                 </ul>
                                 <div class="col-md-12 col-lg-4">
-                                <div class="property-contact">
+                                <div class="property-contact" id="rentAgree">
                                 
-                                    <div class="row">
-                                      <div class="col-md-12 mb-1">
-                                      <button type="button" onclick ="window.location.href='createContract.html?q=`+listing.index+`'" class="btn btn-a" id="btn-contractRent">Create a Rental Contract</a>
-                                      </div>
-                                      </div>
+                                   
                                       </div>
                                
                                   </div>
@@ -269,10 +283,17 @@ App = {
                         `;
                        
                        
-        
+                        user = firebase.auth().currentUser;
                     
                         document.getElementById('col-sm-12').appendChild(page);  
                         
+                        if(user.email == landEmail){
+                          document.getElementById("rentAgree").innerHTML = `<div class="row">
+                          <div class="col-md-12 mb-1">
+                          <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick ="window.location.href='createContract.html?q=`+listing.index+`'" class="btn btn-a" id="btn-contractRent">Create a Rental Contract</a>
+                          </div>
+                          </div>`;
+                        }
                              var i = 0;   
                   var pics = [];
         var urlRef = firebase.database().ref().child(listing.name);
@@ -298,7 +319,7 @@ App = {
                   document.getElementById("item0").className = "active";
                   document.getElementById("pic0").className = "carousel-item active";
 
-                  i++
+                  i++;
                 });
             });
           });
@@ -313,6 +334,7 @@ App = {
       })
     })
          }, 
+
 
   	
 

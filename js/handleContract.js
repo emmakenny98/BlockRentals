@@ -71,11 +71,12 @@ App = {
   var tenantEmail = document.getElementById("tenantEmail-form").value;
   var landlordName = document.getElementById("landlordName-form").value;
   var landlordEmail = document.getElementById("landlordEmail-form").value;
-  var propName = document.getElementById("propName-form").value;
+  
   var address = document.getElementById("address-form").value;
   var start = document.getElementById("start-form").value;
   var end = document.getElementById("end-form").value;
   var price = document.getElementById("price-form").value;
+  var deposit = document.getElementById("deposit-form").value;
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -95,10 +96,10 @@ App = {
     
               App.contracts.CreateListing.deployed().then(function(instance) {
                    createListingInstance = instance;
-                      return  createListingInstance.addAgreement(landlordName, tenantName, propName, address, start, end, price, today, {from: account});
+                      return  createListingInstance.addAgreement(tenantName, tenantEmail, landlordName, landlordEmail, address, start, end, price, deposit, today,  {from: account});
               }).then(function(result) {
                
-                document.getElementById("addProperty-form").reset();
+                window.location.replace("./myContracts.html");
           })
         });
       
@@ -120,19 +121,22 @@ App = {
                      ret[index] = createListingInstance.getAgreement.call(index).then(function(result) {
                            
            var agreement= {
-                         id: result[0],
-                         landlord: result[1],
-                         tenant: result[2],
-                         title: result[3],
-                         addr: result[4],
-                         start: result[5],
-                         end: result[6],
-                         rent: result[7],
-                         todayDate: result[8],
-                         signed: result[9]
-               };
+            id: result[0],
+            tenant: result[1],
+            tenantEmail: result[2],
+            landlord: result[3],
+            landEmail: result[4],
+            addr: result[5],
+            start: result[6],
+            end: result[7],
+            rent: result[8],
+            deposit: result[9],
+            today: result[10],
+            signed: result[11]
+                };
 
-               document.getElementById("title-contract").innerHTML = "Rental agreement for "+agreement.title+", "+agreement.addr+"";
+
+               document.getElementById("title-contract").innerHTML = "Rental agreement for "+agreement.addr+"";
 
 
 
@@ -142,9 +146,7 @@ App = {
                <br><br><br>
                a.  Premises.  The property subject to this Agreement (“Premises”) is located at:
            <br><br>
-           `+agreement.title+`
            
-           <br><br>
            `+agreement.addr+`
            <br><br><br>
            b.  Occupancy. <br><br><br> The Renter(s) may begin occupying the Premises on `+agreement.start+` and must vacate the premises on `+agreement.end+`. 
@@ -152,7 +154,8 @@ App = {
            2.  Costs and Payment
            <br><br><br>
            a.  Monthly Rent. <br><br><br> The Renter(s) agree to pay the Landlord rent in the amount of €`+agreement.rent+` to be paid on or before the first day of every month.
-           <br><br><br>
+           <br>
+           A deposit of €`+agreement.deposit+` must also be paid on signing of contract<br><br><br>
            
           
                  <button type="button" id="verify" class="btn btn-a verify">Verify on Blockchain</button>
@@ -179,38 +182,40 @@ handleContract: function(index) {
                        ret[index] = createListingInstance.getListing.call(index).then(function(result) {
                              
              var listing= {
+                             
+                                   
                            
-                                 
-                         
-                                      name: result[0],
-                                        address: result[1],
-                                        county: result[2],
-                                        price: result[3],
-                                        description: result[4],
-                                        numBeds: result[5],
-                                        numBaths: result[6],
-                                        index: result[7],
-                                        landId: result[8],
-                                        
-                                  };
-
-                  let firebaseRefKey = firebase.database().ref().child(listing.landId);
-                  firebaseRefKey.on('value', (dataSnapShot)=>{
-                       firstName = dataSnapShot.val().userFullName;
-                        surName = dataSnapShot.val().userSurname;
-                         fileName = dataSnapShot.val().image;
-                       email = dataSnapShot.val().userEmail;
-                       phone = dataSnapShot.val().userPhone;
-                       bio = dataSnapShot.val().userBio;
+                                        name: result[0],
+                                          address: result[1],
+                                          county: result[2],
+                                          price: result[3],
+                                          deposit: result[4],
+                                          description: result[5],
+                                          numBeds: result[6],
+                                          numBaths: result[7],
+                                          index: result[8],
+                                          landId: result[9],
+                                          
+                                    };
+                    alert(listing.landId);
+                    let firebaseRefKey = firebase.database().ref().child(listing.landId);
+                    firebaseRefKey.on('value', (dataSnapShot)=>{
+                         landFirstName = dataSnapShot.val().userFullName;
+                          landSurName = dataSnapShot.val().userSurname;
+                           landFileName = dataSnapShot.val().image;
+                         landEmail = dataSnapShot.val().userEmail;
+                         landPhone = dataSnapShot.val().userPhone;
+                         landBio = dataSnapShot.val().userBio;
+                
+                         var landlordName = landFirstName +" "+ landSurName;
+                      var address = listing.name+", "+listing.address+", Co. "+listing.county;
               
-                       var landlordName = firstName +" "+ surName;
-                    
-            
-                 document.getElementById("landlordName-form").value = landlordName;
-                 document.getElementById("address-form").value = listing.address;
-                 document.getElementById("price-form").value = listing.price;
-                 document.getElementById("propName-form").value = listing.name;
-                 document.getElementById("landlordEmail-form").value = email;
+                   document.getElementById("landlordName-form").value = landlordName;
+                   document.getElementById("address-form").value = address
+                   document.getElementById("price-form").value = listing.price;
+                  
+                   document.getElementById("landlordEmail-form").value = landEmail;
+                   document.getElementById("deposit-form").value = listing.deposit
   
                   })
   
@@ -269,7 +274,7 @@ function sendContract() {
   
 }
 
-function completeContract() {
+/*function completeContract() {
   
     var tenantName = getUrlVars()["tenantName"];
     var tenantEmail = getUrlVars()["tenantEmail"];
@@ -309,7 +314,7 @@ a.  Monthly Rent. <br><br><br> The Renter(s) agree to pay the Landlord rent in t
 `
 
     document.getElementById("contract").innerHTML = textContract;
-}
+}*/
 
 function openSearch() {
     $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');

@@ -59,7 +59,7 @@ App = {
 
   	bindEvents: function() {
       
-        $(document).on('click', '.verify', App.verifyTenancy);
+        $(document).on('click', '.verify', sign);
       $(document).on('click', '.navbar-toggle-box-collapse', openSearch);
       $(document).on('click', '.close-box-collapse, .click-closed', closeSearch);
      
@@ -112,7 +112,7 @@ App = {
            var createListingInstance;
                 var ret = []; 
         
-        alert(index);
+   
         web3.eth.getAccounts(function(error, accounts) {
             if (error) {
                    console.log(error);
@@ -150,18 +150,19 @@ App = {
                     
                      ret[i] = createListingInstance.getAgreement.call(indexes[i]).then(function(result) {
                               var agreement= {
-                                id: result[0],
-                                landlord: result[1],
-                                tenant: result[2],
-                                title: result[3],
-                                addr: result[4],
-                                start: result[5],
-                                end: result[6],
-                                rent: result[7],
-                                today: result[8],
-                                signed: result[9] 
-                          };
-
+            id: result[0],
+            tenant: result[1],
+            tenantEmail: result[2],
+            landlord: result[3],
+            landEmail: result[4],
+            addr: result[5],
+            start: result[6],
+            end: result[7],
+            rent: result[8],
+            deposit: result[9],
+            today: result[10],
+            signed: result[11]
+                };
                             alert(agreement.signed);
                             var example = document.createElement('div');
                             example.className = "col-md-12 col-lg-8";
@@ -173,10 +174,8 @@ App = {
                             </div>
                             <div class="col-md-6 col-lg-4">
                             <div class="property-agent">
-                            <h4 class="title-agent">`+agreement.title+`</h4>
-                            <p class="color-text-a">
-                             `+agreement.addr+`
-                            </p>
+                            <h4 class="title-agent">`+agreement.addr+`</h4>
+                           
                             <a href="contract.html?q=`+agreement.id+`" class="color-text-a">View Contract</a>
                            
                             </div>
@@ -222,20 +221,22 @@ App = {
                    
                          ret[index] = createListingInstance.getAgreement.call(index).then(function(result) {
                                
-               var agreement= {
-                             id: result[0],
-                             landlord: result[1],
-                             tenant: result[2],
-                             title: result[3],
-                             addr: result[4],
-                             start: result[5],
-                             end: result[6],
-                             rent: result[7],
-                             todayDate: result[8],
-                             signed: result[9]
-                   };
+                var agreement= {
+                id: result[0],
+                tenant: result[1],
+                tenantEmail: result[2],
+                landlord: result[3],
+                landEmail: result[4],
+                addr: result[5],
+                start: result[6],
+                end: result[7],
+                rent: result[8],
+                deposit: result[9],
+                today: result[10],
+                signed: result[11]
+                    };
     
-                   document.getElementById("title-contract").innerHTML = "Rental agreement for "+agreement.title+", "+agreement.addr+"";
+                   document.getElementById("title-contract").innerHTML = "Rental agreement for "+agreement.addr+"";
     
     
     
@@ -244,8 +245,7 @@ App = {
                    1.  Premises and Occupancy
                    <br><br><br>
                    a.  Premises.  The property subject to this Agreement (“Premises”) is located at:
-               <br><br>
-               `+agreement.title+`
+              
                
                <br><br>
                `+agreement.addr+`
@@ -336,6 +336,12 @@ function sendContract() {
 
   
   
+}
+
+function sign() {
+  var i = parseInt(getUrlVars()["q"]);
+
+  App.signContract(i);
 }
 
 function completeContract() {

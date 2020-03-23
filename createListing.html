@@ -40,18 +40,7 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
-  <script>  /*--/ Navbar Collapse /--*/
-      $('.navbar-toggle-box-collapse').on('click', function () {
-          alert("click");
-          $('body').removeClass('box-collapse-closed').addClass('box-collapse-open');
-      });
-      $('.close-box-collapse, .click-closed').on('click', function () {
-          alert("click");
-          $('body').removeClass('box-collapse-open').addClass('box-collapse-closed');
-          $('.menu-list ul').slideUp(700);
-      });
-      
-      </script>
+  
 </head>
 
 <body class="box-collapse-closed">
@@ -121,7 +110,7 @@ w3IncludeHTML();
           <option value="Louth">Louth</option>
           <option value="Mayo">Mayo</option>
           <option value="Meath">Meath</option>
-          <option value="Monaghan"></option>>
+          <option value="Monaghan">Monaghan</option>>
           <option value="Offaly">Offaly</option>>
           <option value="Roscommon">Roscommon</option>>
           <option value="Sligo">Sligo</option>>
@@ -143,7 +132,7 @@ w3IncludeHTML();
       </tr>
       <td><br>Description</td>
         <td style="width:30%"></td>
-        <td><br><input type="text" id="description-form" class="description-form" style="border:1px solid gray"></td>
+        <td><br><textarea class="form-control" type="text" id="description-form" class="description-form" rows="3" style="border:1px solid gray; width: 59%"></textarea></td>
       </tr>
       <td><br>Number of Bedrooms</td>
         <td style="width:30%"></td>
