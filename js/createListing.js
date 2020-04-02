@@ -92,13 +92,13 @@ App = {
             storageRef.put(file);
             pics[i] = file.name;
         }
-         var firebaseRef = firebase.database().ref(name);
+         var firebaseRef = firebase.database().ref(name);
   
         for(var j = 0; j < pics.length; j++){
-            var img = {
-                image: pics[j]
+            var img = {
+                image: pics[j]
           }
-                firebaseRef.child(j).set(img);
+                firebaseRef.child(j).set(img);
            
         }
 
@@ -113,10 +113,10 @@ App = {
         
     			var account = accounts[0];
                 user = firebase.auth().currentUser;
-                alert(user.uid);
-                var storageRef = firebase.storage().ref(user.uid + '/'+fileName);
+               
+              
                 storageRef.getDownloadURL().then(function(url) {
-                    console.log(url);
+                   
     			App.contracts.CreateListing.deployed().then(function(instance) {
        				createListingInstance = instance;
                   return  createListingInstance.addListing(name, address, county, price, deposit, description, beds, baths, user.uid,  {from: account});

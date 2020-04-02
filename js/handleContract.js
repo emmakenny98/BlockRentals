@@ -109,7 +109,8 @@ App = {
  
     completeContract: function() {
         var index = getUrlVars()["q"];
-        alert(index)
+       
+
         var createListingInstance;
                 var ret = []; 
             
@@ -197,7 +198,7 @@ handleContract: function(index) {
                                           landId: result[9],
                                           
                                     };
-                    alert(listing.landId);
+                   
                     let firebaseRefKey = firebase.database().ref().child(listing.landId);
                     firebaseRefKey.on('value', (dataSnapShot)=>{
                          landFirstName = dataSnapShot.val().userFullName;

@@ -125,8 +125,8 @@ App = {
         const cost = web3.toWei(amount, 'ether');
         web3.eth.getAccounts(function(error, result) {
           web3.eth.sendTransaction(
-              {from: "0x694830D3Fdfaa00Bc911ea28845715666fb8Ee5f",
-              to: "0xEfb720B565A1e37bC0E15713e19DE549D17E82FE",
+           {from: "0xEfb720B565A1e37bC0E15713e19DE549D17E82FE",
+              to: "0x694830D3Fdfaa00Bc911ea28845715666fb8Ee5f",
               value:  cost
                   }, function(err, transactionHash) {
             if (!err)
@@ -138,11 +138,11 @@ App = {
         
       },
      
-      signContract: function(index, deposit){
+      signContract: function(index){
            var createListingInstance;
                 var ret = []; 
         
-        alert(index);
+        
         web3.eth.getAccounts(function(error, accounts) {
             if (error) {
                    console.log(error);
@@ -270,7 +270,7 @@ App = {
                           if(agreement.signed == false){
                            
                             document.getElementById("verify"+agreement.id+"").innerHTML = ` 
-                            <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick="App.signContract(`+agreement.id+`,`+etherumDeposit+`)">Sign the Rental Agreement</button>
+                            <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick="App.signContract(`+agreement.id+`)">Sign the Rental Agreement</button>
                             <br><br>
                             <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick="App.pay(`+etherumDeposit+`)">Pay Deposit of `+etherumDeposit+`ETH(€`+agreement.deposit+`)</button>
                         `;

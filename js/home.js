@@ -224,8 +224,8 @@ printCarousel: function(id) {
 
        
                   document.getElementById("images").innerHTML += pic;
-                  document.getElementById("item1").className = "active";
-                  document.getElementById("pic1").className = "carousel-item active";
+                  document.getElementById("item0").className = "active";
+                  document.getElementById("pic0").className = "carousel-item active";
                   var urls = [];
       
           
@@ -305,7 +305,7 @@ $(function() {
   
 
 function callCarousel() {
-   for(var i =1; i< 4; i++){
+   for(var i =0; i< 3; i++){
         App.printCarousel(i);
    }
 

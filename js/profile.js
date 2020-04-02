@@ -293,7 +293,7 @@ function saveProfile(){
     let user = firebase.auth().currentUser;
     var fileButton = document.getElementById("userAvatar");
     var file = fileButton.files[0];
-    alert(user.uid);
+    
     var storageRef = firebase.storage().ref(user.uid + '/'+file.name);
     storageRef.put(file);
 

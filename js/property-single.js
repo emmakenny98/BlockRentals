@@ -105,6 +105,8 @@ App = {
                landFirstName = dataSnapShot.val().userFullName;
                 landSurName = dataSnapShot.val().userSurname;
                  landFileName = dataSnapShot.val().image;
+                
+                 
                landEmail = dataSnapShot.val().userEmail;
                
                landPhone = dataSnapShot.val().userPhone;
@@ -212,7 +214,7 @@ App = {
                                     </div>
                                   </div>
                                 </div>
-                                <div class="property-description">
+                                <div class="property-description"  style="color:black">
                                   `+listing.description+`
                                 </div>
                                 
@@ -238,7 +240,7 @@ App = {
                             <div class="property-agent">
                             <h4 class="title-agent">`+landlordName+`</h4>
                             <p class="color-text-a">
-                             `+bio+`
+                             `+landBio+`
                             </p>
                            
                             </div>
@@ -264,7 +266,7 @@ App = {
                                 
                                   <li class="d-flex justify-content-between">
                                   <div class="col-md-6 col-lg-4">
-                                  <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick=" window.location.href = 'mailto:`+listing.landEmail+`?Subject=`+listing.name+`'"  class="btn btn-a">Send Message</button>
+                                  <button type="button" style="background-color:#2eca6a; color:white; border:hidden" onclick=" window.location.href = 'mailto:`+landEmail+`?Subject=`+listing.name+`'"  class="btn btn-a">Send Message</button>
                                  
                                 </div>
                                   </li>

@@ -472,10 +472,10 @@ App = {
             <option value="Wicklow">Wicklow</option>
             </select>
           </form>
-            
-            </div></div>
+         </div></div>
             `;
-
+           
+            
         document.getElementById("houses").innerHTML = temp;
                  createListingInstance = instance;
                 for(var i =0; i < indexes.length; i++){

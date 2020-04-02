@@ -163,7 +163,7 @@ App = {
             today: result[10],
             signed: result[11]
                 };
-                            alert(agreement.signed);
+                           
                             var example = document.createElement('div');
                             example.className = "col-md-12 col-lg-8";
                             example.innerHTML = ` 
@@ -210,7 +210,7 @@ App = {
          }, 
         completeContract: function() {
             var index = getUrlVars()["q"];
-            alert(index)
+           
             var createListingInstance;
                     var ret = []; 
                 
